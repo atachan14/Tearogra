@@ -131,6 +131,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AroHeart 1 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7583323399775560119, guid: 95f975d08eb2d8c4083329e11a38e3e5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583323399775560119, guid: 95f975d08eb2d8c4083329e11a38e3e5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9185370155101147722, guid: 95f975d08eb2d8c4083329e11a38e3e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -562,6 +570,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -687,6 +696,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9175c5d59015f244a3a7d95f431983b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,6 +1583,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2266854231602105343}
     m_Modifications:
+    - target: {fileID: 8892965147056735, guid: 95f975d08eb2d8c4083329e11a38e3e5, type: 3}
+      propertyPath: m_Name
+      value: Walk/Free
+      objectReference: {fileID: 0}
     - target: {fileID: 4137664462640250774, guid: 95f975d08eb2d8c4083329e11a38e3e5, type: 3}
       propertyPath: m_Name
       value: AroHeart 1 1
@@ -1781,7 +1806,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &1307006804
 MonoBehaviour:
   m_ObjectHideFlags: 0

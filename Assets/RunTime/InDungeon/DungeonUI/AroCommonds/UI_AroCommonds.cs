@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_AroCommonds : MonoBehaviour
@@ -9,7 +10,8 @@ public class UI_AroCommonds : MonoBehaviour
     [SerializeField] Toggle search_ignore;
     [SerializeField] Toggle follow_fixed;
     GameObject selectedAro;
-    AroCommonds selectedAroCommonds;
+    UnitCommonds selectedAroCommonds;
+    Camera MainCam;
 
     bool isSettingAro = false;
 
@@ -19,18 +21,53 @@ public class UI_AroCommonds : MonoBehaviour
         chase_run.onValueChanged.AddListener(_ => ReturnAroCommond());
         search_ignore.onValueChanged.AddListener(_ => ReturnAroCommond());
         follow_fixed.onValueChanged.AddListener(_ => ReturnAroCommond());
+        MainCam = Camera.main;
+    }
+
+    private void Update()
+    {
+        ClickNextPos();
+        FollowCam();
+    }
+
+    void ClickNextPos()
+    {
+        if (Input.GetMouseButtonDown(0)&&selectedAro)
+        {
+            // UIè„ÇæÇ¡ÇΩÇÁÉXÉãÅ[
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Camera.main.nearClipPlane; // 2DÇ»ÇÁ z ÇÕå≈íËÇ≈OK
+
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+            worldPos.z = 0f; // 2DÇæÇ©ÇÁ z=0 Ç…ÇµÇ∆Ç≠
+
+            selectedAroCommonds.NextPos = worldPos;
+        }
+    }
+
+    void FollowCam()
+    {
+        if (follow_fixed.isOn && selectedAro)
+        {
+            Vector3 pos = selectedAro.transform.position;
+            pos.z = MainCam.transform.position.z;
+            MainCam.transform.position = pos;
+        }
     }
 
     public void SetSelectedAro(GameObject aro)
     {
+        selectedAro = aro;
+        selectedAroCommonds = selectedAro.GetComponentInChildren<UnitCommonds>();
+
         isSettingAro = true;
 
-        selectedAro = aro;
-        selectedAroCommonds = selectedAro.GetComponentInChildren<AroCommonds>();
         walk_free.isOn = selectedAroCommonds.Walk_Free;
-        chase_run.isOn = selectedAroCommonds.Chase_Run;
+        chase_run.isOn = selectedAroCommonds.Combat_Run;
         search_ignore.isOn = selectedAroCommonds.Search_Ignore;
-        follow_fixed.isOn = selectedAroCommonds.Follow_Fixed;
 
         isSettingAro = false;
     }
@@ -41,9 +78,8 @@ public class UI_AroCommonds : MonoBehaviour
         if (isSettingAro) return;
 
         selectedAroCommonds.Walk_Free = walk_free.isOn;
-        selectedAroCommonds.Chase_Run = chase_run.isOn;
+        selectedAroCommonds.Combat_Run = chase_run.isOn;
         selectedAroCommonds.Search_Ignore = search_ignore.isOn;
-        selectedAroCommonds.Follow_Fixed = follow_fixed.isOn;
         Debug.Log($"{selectedAro},{walk_free.isOn},{chase_run.isOn},{search_ignore.isOn},{follow_fixed.isOn}");
     }
 }

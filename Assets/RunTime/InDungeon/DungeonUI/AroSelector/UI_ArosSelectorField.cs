@@ -49,6 +49,10 @@ public class UI_ArosSelectorField : MonoBehaviour
         Aro.GetComponentInChildren<AroShadow>()
             .GetComponent<SpriteRenderer>()
             .color = InnerShadow.color;
+
+        Aro.GetComponentInChildren<NextPosMarker>()
+           .GetComponent<SpriteRenderer>()
+           .color = InnerShadow.color;
     }
 
 }
