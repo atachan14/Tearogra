@@ -5,25 +5,23 @@ using UnityEngine;
 public class NextPosMarker : MonoBehaviour
 {
     SpriteRenderer sr;
-    UnitCommonds cmds;
-    Vector3 NextPos;
+    WalkChecker walkChecker;
     Color tempColor;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        cmds = GetComponentInParent<UnitCommonds>();
+        walkChecker = GetComponentInParent<Unit>().GetComponentInChildren<WalkChecker>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        NextPos = cmds.NextPos;
-        transform.position = NextPos;
+
+        transform.position = walkChecker.TargetPos;
 
         tempColor = sr.color;
 
-        if (Vector3.Distance(transform.position, cmds.transform.position) < 0.2f)
+        if (Vector3.Distance(transform.position, walkChecker.transform.position) < 0.2f)
         {
             tempColor.a = 0f; // Š®‘S‚É“§–¾
         }

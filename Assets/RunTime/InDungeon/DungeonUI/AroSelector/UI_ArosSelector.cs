@@ -14,7 +14,7 @@ public class UI_ArosSelector : MonoBehaviour
 
     void SetupArosSelecterFields()
     {
-        var aroList = PlayerData.Instance.GetComponentsInChildren<Creature>();
+        var aroList = PlayerData.Instance.GetComponentsInChildren<Unit>();
 
         if (aroList.Length != aroSelectorFields.Length)
         {

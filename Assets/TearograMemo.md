@@ -11,23 +11,47 @@
 	- if[State:Free]
 		- ExeFreeSkillList
 
- - ConbatSkillManager
-	- if[state:Conbat]
+ - CombatSkillManager
+	- if[state:Combat]
 		- ExeCombatSkillList
 			- if(check:true)
-				- [state:act]
-				- yield return StartCoroutine(act)
-				- [state:Conbat]
+				- exe
+					- enter() [state:this]
+					- yield return StartCoroutine(act)
+					- exit() [state:ex.lastSkill]
  
 
 # Object構造
+
+- BaseUnit
+	- Sprite
+		- Body
+		- ArosSelectorIcon
+		- ArosStatusIcon
+	- Camp(敵か味方かの判別兼、陣営固有のオブジェクト置き場)
+	- Skills
+		- FreeSkills
+			- ex.walk...
+		- CombatSkills
+			- ex.fireball...
+	- CreatureItems
+
+
 - PlayerData
 	- Aros
 		- Creature (Parameter,State)
 			- Skills
+				- BasicSkills
+					- search
+						- combat
+						- run
+					- walk
+					- free
 				- CombatSkills
 					- SkillParent(RequireChecker,Parameter)
-						- Parameters
+						- Mods
+							- Param
+							- Other
 						- Actor
 							- AttackCollision
 							- VisualEffect

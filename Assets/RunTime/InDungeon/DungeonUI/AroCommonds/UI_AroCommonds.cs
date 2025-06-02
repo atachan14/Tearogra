@@ -9,10 +9,13 @@ public class UI_AroCommonds : MonoBehaviour
     [SerializeField] Toggle chase_run;
     [SerializeField] Toggle search_ignore;
     [SerializeField] Toggle follow_fixed;
-    GameObject selectedAro;
-    UnitCommonds selectedAroCommonds;
+
     Camera MainCam;
 
+    GameObject selectedAro;
+    UnitState selectedState;
+    WalkChecker selectedWalkChecker;
+    
     bool isSettingAro = false;
 
     private void Start()
@@ -44,7 +47,7 @@ public class UI_AroCommonds : MonoBehaviour
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
             worldPos.z = 0f; // 2D‚¾‚©‚ç z=0 ‚É‚µ‚Æ‚­
 
-            selectedAroCommonds.NextPos = worldPos;
+            selectedWalkChecker.TargetPos = worldPos;
         }
     }
 
@@ -61,13 +64,14 @@ public class UI_AroCommonds : MonoBehaviour
     public void SetSelectedAro(GameObject aro)
     {
         selectedAro = aro;
-        selectedAroCommonds = selectedAro.GetComponentInChildren<UnitCommonds>();
+        selectedState = selectedAro.GetComponentInChildren<UnitState>();
+        selectedWalkChecker = selectedAro.GetComponentInChildren<WalkChecker>();
 
         isSettingAro = true;
 
-        walk_free.isOn = selectedAroCommonds.Walk_Free;
-        chase_run.isOn = selectedAroCommonds.Combat_Run;
-        search_ignore.isOn = selectedAroCommonds.Search_Ignore;
+        walk_free.isOn = selectedState.Walk_Free;
+        chase_run.isOn = selectedState.Combat_Run;
+        search_ignore.isOn = selectedState.Search_Ignore;
 
         isSettingAro = false;
     }
@@ -77,9 +81,9 @@ public class UI_AroCommonds : MonoBehaviour
 
         if (isSettingAro) return;
 
-        selectedAroCommonds.Walk_Free = walk_free.isOn;
-        selectedAroCommonds.Combat_Run = chase_run.isOn;
-        selectedAroCommonds.Search_Ignore = search_ignore.isOn;
+        selectedState.Walk_Free = walk_free.isOn;
+        selectedState.Combat_Run = chase_run.isOn;
+        selectedState.Search_Ignore = search_ignore.isOn;
         Debug.Log($"{selectedAro},{walk_free.isOn},{chase_run.isOn},{search_ignore.isOn},{follow_fixed.isOn}");
     }
 }
