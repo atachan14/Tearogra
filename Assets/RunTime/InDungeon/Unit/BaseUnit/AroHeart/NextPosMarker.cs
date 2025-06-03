@@ -5,12 +5,12 @@ using UnityEngine;
 public class NextPosMarker : MonoBehaviour
 {
     SpriteRenderer sr;
-    WalkChecker walkChecker;
+    WalkActor walkChecker;
     Color tempColor;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        walkChecker = GetComponentInParent<Unit>().GetComponentInChildren<WalkChecker>();
+        walkChecker = GetComponentInParent<Unit>().GetComponentInChildren<WalkActor>();
     }
 
     // Update is called once per frame

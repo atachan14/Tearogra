@@ -17,11 +17,9 @@ public class UnitState : MonoBehaviour
     void Start()
     {
         ActionSkill = (ISkillActor)GetComponentInChildren<FreeActor>();
-        Debug.Log($"ActionSkill:{(MonoBehaviour)ActionSkill}");
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         debug_ActionSkill = (MonoBehaviour)ActionSkill;

@@ -14,8 +14,8 @@ public class UI_AroCommonds : MonoBehaviour
 
     GameObject selectedAro;
     UnitState selectedState;
-    WalkChecker selectedWalkChecker;
-    
+    WalkActor selectedWalkActor;
+
     bool isSettingAro = false;
 
     private void Start()
@@ -35,7 +35,7 @@ public class UI_AroCommonds : MonoBehaviour
 
     void ClickNextPos()
     {
-        if (Input.GetMouseButtonDown(0)&&selectedAro)
+        if (Input.GetMouseButtonDown(0) && selectedAro)
         {
             // UIè„ÇæÇ¡ÇΩÇÁÉXÉãÅ[
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
@@ -47,7 +47,7 @@ public class UI_AroCommonds : MonoBehaviour
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
             worldPos.z = 0f; // 2DÇæÇ©ÇÁ z=0 Ç…ÇµÇ∆Ç≠
 
-            selectedWalkChecker.TargetPos = worldPos;
+            selectedWalkActor.TargetPos = worldPos;
         }
     }
 
@@ -65,7 +65,7 @@ public class UI_AroCommonds : MonoBehaviour
     {
         selectedAro = aro;
         selectedState = selectedAro.GetComponentInChildren<UnitState>();
-        selectedWalkChecker = selectedAro.GetComponentInChildren<WalkChecker>();
+        selectedWalkActor = selectedAro.GetComponentInChildren<WalkActor>();
 
         isSettingAro = true;
 

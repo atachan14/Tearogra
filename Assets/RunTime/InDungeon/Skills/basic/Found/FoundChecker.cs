@@ -8,9 +8,15 @@ public class FoundChecker : BaseSkillChecker
         return TargetList.Count > 0;
     }
 
-    protected override void Start()
+    protected override void SetupColliderRange()
     {
+        col.radius = unitParams.searchRange;
+    }
 
-        base.Start();
+    protected override void SetupCanState()
+    {
+        AddCanState<FreeActor>();
+        AddCanState<WalkActor>();
+
     }
 }

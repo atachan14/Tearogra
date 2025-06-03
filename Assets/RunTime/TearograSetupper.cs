@@ -11,12 +11,29 @@ public class TearograSetupper : MonoBehaviour
         Screen.SetResolution(1280, 720, false);
         Application.runInBackground = true;
         Time.timeScale = 1f;
+        SetupTriggerMatrix();
+
+
+
     }
 
-
-    // Update is called once per frame
-    void Update()
+    void SetupTriggerMatrix()
     {
-        
+       
+        Physics2D.IgnoreLayerCollision(
+        LayerMask.NameToLayer("AroSearcher"),
+        LayerMask.NameToLayer("AroHeart"),
+        true // Å© ñ≥éãÇ∑ÇÈÇÊÇ§Ç…ê›íË
+        );
+
+        Physics2D.IgnoreLayerCollision(
+        LayerMask.NameToLayer("GraSearcher"),
+        LayerMask.NameToLayer("GraHeart"),
+        true // Å© ñ≥éãÇ∑ÇÈÇÊÇ§Ç…ê›íË
+        );
     }
+
+
+
+
 }

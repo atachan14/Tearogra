@@ -5,17 +5,26 @@ using UnityEngine;
 
 public class WalkActor : BaseSkillActor
 {
+    public Vector3 TargetPos { get; set; }
 
+    protected override void Start()
+    {
+        unit = GetComponentInParent<Unit>();
+        parameter = GetComponentInParent<UnitParams>();
+        state = GetComponentInParent<UnitState>();
+
+        TargetPos = unit.transform.position;
+    }
 
     public override void Execute()
     {
-        if (Vector3.Distance(checker.TargetPos, unit.transform.position) < 0.01)
+        if (Vector3.Distance(TargetPos, unit.transform.position) < 0.01)
         {
-            unit.transform.position = checker.TargetPos;
+            unit.transform.position = TargetPos;
             return;
         }
 
-        Vector3 dir = (checker.TargetPos - unit.transform.position).normalized;
+        Vector3 dir = (TargetPos - unit.transform.position).normalized;
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         state.Angle = angle;
