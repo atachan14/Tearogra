@@ -8,7 +8,7 @@ public class UnitState : MonoBehaviour
 
     public ISkillActor ActionSkill ;
     [SerializeField] MonoBehaviour debug_ActionSkill;
-    public Vector3 angle = Vector3.zero;
+    public float Angle { get; set; } = -91;
 
     public bool Walk_Free { get; set; } = true;
     public bool Combat_Run { get; set; } = true;

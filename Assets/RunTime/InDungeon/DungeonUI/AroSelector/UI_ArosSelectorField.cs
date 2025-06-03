@@ -44,7 +44,7 @@ public class UI_ArosSelectorField : MonoBehaviour
     public void SetAro(GameObject aro)
     {
         Aro = aro;
-        aroIconImage.sprite = Aro.GetComponentInChildren<CreatureSprite>().AroSelecterIcon.sprite;
+        aroIconImage.sprite = Aro.GetComponentInChildren<IconSprites>().AroSelectorIcon;
 
         Aro.GetComponentInChildren<AroShadow>()
             .GetComponent<SpriteRenderer>()
