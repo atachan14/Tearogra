@@ -32,7 +32,7 @@ public class FreeSkillManager : MonoBehaviour
                     ISkillActor actor = ((MonoBehaviour)checker).GetComponent<ISkillActor>();
                     if (actor != null)
                     {
-                        StartCoroutine(actor.Exe());
+                        actor.Execute();
                     }
                     else 
                     {

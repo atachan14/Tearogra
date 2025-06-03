@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class UnitParameter : MonoBehaviour
+public class UnitParams : MonoBehaviour
 {
     public float ms = 1f;
+    public float fr = 15f;
     void Start()
     {
 

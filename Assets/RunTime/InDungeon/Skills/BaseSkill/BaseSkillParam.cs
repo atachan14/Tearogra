@@ -2,15 +2,8 @@ using UnityEngine;
 
 public class BaseSkillParam : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] float requireRange { get; }
+    [SerializeField] float requireUnitNum { get; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

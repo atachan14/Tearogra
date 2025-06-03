@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class FreeActor : MonoBehaviour,ISkillActor
 {
-    public IEnumerator Exe()
+    public void Execute()
     {
-        yield return null;
+       
     }
 }

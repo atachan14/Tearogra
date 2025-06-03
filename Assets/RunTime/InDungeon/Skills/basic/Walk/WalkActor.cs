@@ -7,7 +7,7 @@ public class WalkActor : BaseSkillActor
 {
 
 
-    protected override IEnumerator Act()
+    protected override IEnumerator MidFrame()
     {
 
         Vector3 dir = (checker.TargetPos - unit.transform.position).normalized;
@@ -16,7 +16,7 @@ public class WalkActor : BaseSkillActor
         state.Angle = angle;
 
         unit.transform.position += dir * parameter.ms * Time.deltaTime;
-        yield return null;
+        yield break;
     }
 
 }

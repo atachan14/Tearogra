@@ -5,7 +5,7 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
 {
     protected Unit unit;
     protected UnitState state;
-    protected UnitParameter parameter;
+    protected UnitParams parameter;
     protected BaseSkillChecker checker;
 
     protected ISkillActor lastActor;
@@ -14,30 +14,49 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     protected virtual void Start()
     {
         unit = GetComponentInParent<Unit>();
-        parameter = GetComponentInParent<UnitParameter>();
+        parameter = GetComponentInParent<UnitParams>();
         state = GetComponentInParent<UnitState>();
         checker = GetComponent<BaseSkillChecker>();
     }
 
-    public virtual IEnumerator Exe()
+    public virtual void Execute()
+    {
+        StartCoroutine(ExeCoroutine());
+    }
+    private IEnumerator ExeCoroutine()
     {
         Enter();
-        yield return StartCoroutine(Act());
+        yield return StartCoroutine(ActCoroutine());
         Exit();
     }
-
     protected virtual void Enter()
     {
         lastActor = state.ActionSkill;
         state.ActionSkill = this;
     }
-    protected virtual IEnumerator Act()
+   
+    public virtual IEnumerator ActCoroutine()
     {
-        Debug.Log("BaseSkillActor:Act");
-        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(FrontFrame());
+        yield return StartCoroutine(MidFrame());
+        yield return StartCoroutine(BackFrame());
+    }
+    protected virtual IEnumerator FrontFrame()
+    {
+        yield break;
+    }
+    protected virtual IEnumerator MidFrame()
+    {
+        Debug.Log("BaseSkillActor.MidFrame");
+        yield break;
+    }
+    protected virtual IEnumerator BackFrame()
+    {
+        yield break;
     }
     protected virtual void Exit()
     {
         state.ActionSkill = lastActor;
     }
+
 }

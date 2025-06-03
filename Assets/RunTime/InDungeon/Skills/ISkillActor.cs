@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ISkillActor  
 {
-    public IEnumerator Exe();
+    public void Execute();
 
    
 

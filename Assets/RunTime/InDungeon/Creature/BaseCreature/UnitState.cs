@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class UnitState : MonoBehaviour
 {
 
-    public ISkillActor ActionSkill ;
+    public ISkillActor ActionSkill;
     [SerializeField] MonoBehaviour debug_ActionSkill;
     public float Angle { get; set; } = -91;
 
@@ -18,7 +18,6 @@ public class UnitState : MonoBehaviour
     {
         ActionSkill = (ISkillActor)GetComponentInChildren<FreeActor>();
         Debug.Log($"ActionSkill:{(MonoBehaviour)ActionSkill}");
-        //ActionMode = GetComponentInChildren<UnitCommonds>().Walk_Free ? Walk : ActionModeCode.Free;
 
     }
 
@@ -26,40 +25,6 @@ public class UnitState : MonoBehaviour
     void Update()
     {
         debug_ActionSkill = (MonoBehaviour)ActionSkill;
-        UpdateActionMode();
     }
 
-    void UpdateActionMode()
-    {
-        //if (ActionMode == ActionModeCode.Free
-        //    && cmds.Walk_Free)
-        //{
-        //    ActionMode = ActionModeCode.Walk;
-        //    return;
-        //}
-
-        //if (ActionMode == ActionModeCode.Walk
-        //    && !cmds.Walk_Free)
-        //{
-        //    ActionMode = ActionModeCode.Free;
-        //    return;
-        //}
-
-        //if (ActionMode == ActionModeCode.Run
-        //    && cmds.Combat_Run)
-        //{
-        //    ActionMode = ActionModeCode.Combat;
-        //    return;
-        //}
-
-        //if (ActionMode == ActionModeCode.Combat
-        //    && !cmds.Combat_Run)
-        //{
-        //    ActionMode = ActionModeCode.Run;
-        //    return;
-        //}
-
-
-
-    }
 }
