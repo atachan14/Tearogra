@@ -25,6 +25,8 @@ public class UnitState : MonoBehaviour
     void Update()
     {
         debug_ActionSkill = (MonoBehaviour)ActionSkill;
+
+      
     }
 
 }

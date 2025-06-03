@@ -11,33 +11,21 @@ public class FreeSkillManager : MonoBehaviour
     private void Start()
     {
         state = GetComponentInParent<UnitState>();
-        SetupSkillList();
-    }
-
-    void SetupSkillList()
-    {
         checkerList = GetComponentsInChildren<IRequireChecker>();
-
-
     }
+
 
     void Update()
     {
-        if (state.ActionSkill is FreeActor)
+        if (state.ActionSkill is FreeActor
+            || state.ActionSkill is WalkActor)
         {
             foreach (IRequireChecker checker in checkerList) 
             {
                 if (checker.Check())
                 {
                     ISkillActor actor = ((MonoBehaviour)checker).GetComponent<ISkillActor>();
-                    if (actor != null)
-                    {
-                        actor.Execute();
-                    }
-                    else 
-                    {
-                        Debug.Log($"actor‚ª‚ ‚è‚Ü‚¹‚ñ. checker:{checker}");
-                    }
+                    actor.Execute();
                 }
             }
         }

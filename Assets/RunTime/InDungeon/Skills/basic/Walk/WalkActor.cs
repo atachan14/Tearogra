@@ -7,8 +7,13 @@ public class WalkActor : BaseSkillActor
 {
 
 
-    protected override IEnumerator MidFrame()
+    public override void Execute()
     {
+        if (Vector3.Distance(checker.TargetPos, unit.transform.position) < 0.01)
+        {
+            unit.transform.position = checker.TargetPos;
+            return;
+        }
 
         Vector3 dir = (checker.TargetPos - unit.transform.position).normalized;
 
@@ -16,7 +21,6 @@ public class WalkActor : BaseSkillActor
         state.Angle = angle;
 
         unit.transform.position += dir * parameter.ms * Time.deltaTime;
-        yield break;
     }
 
 }
