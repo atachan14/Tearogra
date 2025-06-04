@@ -5,7 +5,11 @@ public class FoundChecker : BaseSkillChecker
 
     public override bool Check()
     {
-        return TargetList.Count > 0;
+        TargetUnit = GetClosest();
+
+        return TargetUnit
+            && state.Search_Ignore
+            && (state.ActionSkill is FreeActor || state.ActionSkill is WalkActor);
     }
 
     protected override void SetupColliderRange()

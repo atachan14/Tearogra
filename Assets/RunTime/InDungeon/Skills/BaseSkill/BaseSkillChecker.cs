@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 {
+    protected Unit unit;
     protected UnitState state;
     protected UnitParams unitParams;
     protected SkillParams skillParams;
@@ -16,13 +18,13 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     protected virtual void Start()
     {
+        unit = GetComponentInParent<Unit>();
         state = GetComponentInParent<UnitState>();
         unitParams = GetComponentInParent<UnitParams>();
 
         skillParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();
 
-        TargetPos = state.transform.position;
         SetupCanState();
         SetupColliderRange();
         
@@ -44,12 +46,9 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     }
 
     
-
-
-
     protected void AddCanState<T>() where T : ISkillActor
     {
-        var skill = GetComponentInParent<T>();
+        var skill = state.GetComponentInChildren<T>();
         if (skill != null)
             canState.Add(skill);
         else
@@ -65,5 +64,12 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     void OnTriggerExit2D(Collider2D other)
     {
         TargetList.Remove(other.gameObject);
+    }
+
+    protected GameObject GetClosest()
+    {
+        return TargetList.OrderBy(u => Vector3.Distance(unit.transform.position, u.transform.position)).FirstOrDefault();
+
+
     }
 }

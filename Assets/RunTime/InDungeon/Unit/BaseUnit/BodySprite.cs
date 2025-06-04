@@ -27,18 +27,18 @@ public class BodySprite : MonoBehaviour
             body.sprite = downLeft;
         }
 
-        else if(angle <0)
-        { 
-            body.sprite= downRight;
+        else if (angle < 0)
+        {
+            body.sprite = downRight;
         }
 
-        else if(angle<90)
+        else if (angle < 90)
         {
-             body.sprite=upRight;
+            body.sprite = upRight;
         }
         else
         {
-            body.sprite=upLeft;
+            body.sprite = upLeft;
         }
 
     }

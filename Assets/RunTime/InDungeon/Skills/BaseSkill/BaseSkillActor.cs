@@ -47,7 +47,6 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     }
     protected virtual IEnumerator MidFrame()
     {
-        Debug.Log("BaseSkillActor.MidFrame");
         yield break;
     }
     protected virtual IEnumerator BackFrame()
@@ -59,4 +58,19 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
         state.ActionSkill = lastActor;
     }
 
+
+    protected void UpdateAngleFromTargetPos(Vector3 TargetPos)
+    {
+        Vector3 dir = (TargetPos - unit.transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        state.Angle = angle;
+    }
+
+    protected Vector3 AngleToDir()
+    {
+        float angleRad = state.Angle * Mathf.Deg2Rad;
+        return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0f);
+    }
+
+   
 }

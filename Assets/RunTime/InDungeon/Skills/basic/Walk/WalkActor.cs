@@ -9,9 +9,7 @@ public class WalkActor : BaseSkillActor
 
     protected override void Start()
     {
-        unit = GetComponentInParent<Unit>();
-        parameter = GetComponentInParent<UnitParams>();
-        state = GetComponentInParent<UnitState>();
+        base.Start();
 
         TargetPos = unit.transform.position;
     }
@@ -24,12 +22,8 @@ public class WalkActor : BaseSkillActor
             return;
         }
 
-        Vector3 dir = (TargetPos - unit.transform.position).normalized;
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        state.Angle = angle;
-
-        unit.transform.position += dir * parameter.ms * Time.deltaTime;
+        UpdateAngleFromTargetPos(TargetPos);
+        unit.transform.position += AngleToDir() * parameter.ms * Time.deltaTime;
     }
-
+    
 }
