@@ -18,7 +18,7 @@ public class FoundActor : BaseSkillActor
     {
         UpdateAngleFromTargetPos(checker.TargetUnit.transform.position);
         Instantiate(foundEffect, transform);
-        yield break;
+        yield return new WaitForSeconds(skillParams.front);
     }
 
     protected override void Exit()

@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
+//Sprite•Û‚ÆƒAƒ“ƒOƒ‹‘Î‰‚¾‚¯B
+
 public class BodySprite : MonoBehaviour
 {
     [SerializeField] SpriteRenderer body;

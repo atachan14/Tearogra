@@ -5,7 +5,9 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
 {
     protected Unit unit;
     protected UnitState state;
-    protected UnitParams parameter;
+    protected UnitParams unitParams;
+
+    protected SkillParams skillParams;
     protected BaseSkillChecker checker;
 
     protected ISkillActor lastActor;
@@ -13,9 +15,16 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
 
     protected virtual void Start()
     {
+        CacheReferences();
+    }
+
+    protected virtual void CacheReferences()
+    {
         unit = GetComponentInParent<Unit>();
-        parameter = GetComponentInParent<UnitParams>();
+        unitParams = GetComponentInParent<UnitParams>();
         state = GetComponentInParent<UnitState>();
+
+        skillParams = GetComponent<SkillParams>();
         checker = GetComponent<BaseSkillChecker>();
     }
 

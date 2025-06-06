@@ -48,5 +48,10 @@ public class BasicSkillManager : MonoBehaviour
                 break;
         }
     }
+
+    public void ChangeActionSkillToFree()
+    {
+        state.ActionSkill = freeSkill;
+    }
 }
 

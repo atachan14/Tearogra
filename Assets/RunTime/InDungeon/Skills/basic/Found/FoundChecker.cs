@@ -14,7 +14,8 @@ public class FoundChecker : BaseSkillChecker
 
     protected override void SetupColliderRange()
     {
-        col.radius = unitParams.searchRange;
+        col.radius = unitParams.searchRange;          //‘{õ”ÍˆÍ‚ÍunitParams‚ÅFound,Combat,Run‹¤—LB
+
     }
 
     protected override void SetupCanState()

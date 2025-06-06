@@ -23,7 +23,7 @@ public class WalkActor : BaseSkillActor
         }
 
         UpdateAngleFromTargetPos(TargetPos);
-        unit.transform.position += AngleToDir() * parameter.ms * Time.deltaTime;
+        unit.transform.position += AngleToDir() * unitParams.ms * Time.deltaTime;
     }
     
 }

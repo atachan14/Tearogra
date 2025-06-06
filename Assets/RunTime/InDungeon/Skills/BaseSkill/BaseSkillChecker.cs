@@ -7,12 +7,13 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     protected Unit unit;
     protected UnitState state;
     protected UnitParams unitParams;
+
     protected SkillParams skillParams;
     protected CircleCollider2D col;
 
-    public List<ISkillActor> canState = new();
+    public List<ISkillActor> CanState { get; set; } = new();
 
-    public List<GameObject> TargetList = new();
+    public List<GameObject> TargetList { get; set; } = new();
     public GameObject TargetUnit { get; set; }
     public Vector3 TargetPos { get; set; }
 
@@ -36,7 +37,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     protected virtual void SetupColliderRange()
     {
-        col.radius = skillParams.actRange;
+        col.radius = skillParams.colRange;
     }
 
     public virtual bool Check()
@@ -50,7 +51,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     {
         var skill = state.GetComponentInChildren<T>();
         if (skill != null)
-            canState.Add(skill);
+            CanState.Add(skill);
         else
             Debug.LogWarning($"[BaseSkillChecker] {typeof(T).Name} not found on unit");
     }
@@ -66,7 +67,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
         TargetList.Remove(other.gameObject);
     }
 
-    protected GameObject GetClosest()
+    public GameObject GetClosest()
     {
         return TargetList.OrderBy(u => Vector3.Distance(unit.transform.position, u.transform.position)).FirstOrDefault();
 
