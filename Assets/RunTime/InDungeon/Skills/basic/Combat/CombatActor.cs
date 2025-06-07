@@ -10,20 +10,20 @@ public class CombatActor : BaseSkillActor
 
     protected override void CacheReferences()
     {
-        base.CacheReferences(); 
-        bsm = GetComponentInParent<BasicSkillManager>(); 
+        base.CacheReferences();
+        bsm = GetComponentInParent<BasicSkillManager>();
     }
     public override void Execute()
     {
         //TargetÇÕcheckerÇ≈ï€éùÅB
         //Ç¢Ç»Ç≠Ç»Ç¡ÇƒÇΩÇÁFreeÇ…ñﬂÇ∑ÅB
         TargetUnit = checker.GetClosest();
-        if(TargetUnit == null)
+        if (TargetUnit == null)
         {
             bsm.ChangeActionSkillToFree();
             return;
         }
-        
+
         //TargetPosÇå¸Ç≠
         TargetPos = TargetUnit.transform.position;
         UpdateAngleFromTargetPos(TargetPos);
@@ -36,7 +36,7 @@ public class CombatActor : BaseSkillActor
         }
         else
         {
-            unit.transform.position += AngleToDir() * unitParams.ms * Time.deltaTime;
+            unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.spValue) * Time.deltaTime;
         }
     }
 }

@@ -62,6 +62,7 @@ public class SkillParams : MonoBehaviour
 
     [Header("Other")]
     public int actNum;
+    public float spValue;
 
     [Header("Damage")]
     public int pd;

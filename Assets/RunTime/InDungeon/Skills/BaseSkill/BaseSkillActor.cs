@@ -1,6 +1,30 @@
 using System.Collections;
 using UnityEngine;
 
+/* 
+ * Start
+ * ↓
+ * CashRefernces　参照取得。
+ * 
+ * Execute　Coroutineを使わないときにoverride
+ * ↓
+ * ExeCoroutine
+ * ↓
+ * Enter　実行前準備
+ * ↓
+ * ActCoroutine　動作についての流れ。
+ * ↓
+ * FrontFrame　準備動作（攻撃判定発生前等）
+ * ↓
+ * MainFrame　メイン動作
+ * ↓
+ * BackFrame　動作後の硬直等
+ * ↓
+ * Exit　実行後後処理　
+ */
+
+
+
 public class BaseSkillActor : MonoBehaviour, ISkillActor
 {
     protected Unit unit;
@@ -28,16 +52,21 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
         checker = GetComponent<BaseSkillChecker>();
     }
 
+    //BasicSkillsがoverrideする。他は基本的にoverrideしない。
     public virtual void Execute()
     {
         StartCoroutine(ExeCoroutine());
     }
+
     private IEnumerator ExeCoroutine()
     {
         Enter();
         yield return StartCoroutine(ActCoroutine());
         Exit();
     }
+
+    
+
     protected virtual void Enter()
     {
         lastActor = state.ActionSkill;
@@ -50,6 +79,8 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
         yield return StartCoroutine(MidFrame());
         yield return StartCoroutine(BackFrame());
     }
+
+    //基本的なoverrideはこの下三つとCacheReferences
     protected virtual IEnumerator FrontFrame()
     {
         yield break;
@@ -68,6 +99,9 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     }
 
 
+
+    // ↓ヘルパーメソッド↓
+    // TargetPosに身体を向ける。
     protected void UpdateAngleFromTargetPos(Vector3 TargetPos)
     {
         Vector3 dir = (TargetPos - unit.transform.position).normalized;
@@ -75,6 +109,7 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
         state.Angle = angle;
     }
 
+    //身体が向いてる方向(floatで保持)をVector3に変換
     protected Vector3 AngleToDir()
     {
         float angleRad = state.Angle * Mathf.Deg2Rad;

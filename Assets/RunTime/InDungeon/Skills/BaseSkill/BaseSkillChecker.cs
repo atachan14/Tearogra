@@ -12,12 +12,18 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     protected CircleCollider2D col;
 
     public List<ISkillActor> CanState { get; set; } = new();
-
     public List<GameObject> TargetList { get; set; } = new();
     public GameObject TargetUnit { get; set; }
     public Vector3 TargetPos { get; set; }
 
     protected virtual void Start()
+    {
+        CacheReferences();
+        SetupCanState();
+        SetupColliderRange();
+    }
+
+    protected virtual void CacheReferences()
     {
         unit = GetComponentInParent<Unit>();
         state = GetComponentInParent<UnitState>();
@@ -25,10 +31,6 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
         skillParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();
-
-        SetupCanState();
-        SetupColliderRange();
-        
     }
     protected virtual void SetupCanState()
     {
@@ -42,19 +44,9 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     public virtual bool Check()
     {
-
         return false;
     }
-
     
-    protected void AddCanState<T>() where T : ISkillActor
-    {
-        var skill = state.GetComponentInChildren<T>();
-        if (skill != null)
-            CanState.Add(skill);
-        else
-            Debug.LogWarning($"[BaseSkillChecker] {typeof(T).Name} not found on unit");
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -65,6 +57,17 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     void OnTriggerExit2D(Collider2D other)
     {
         TargetList.Remove(other.gameObject);
+    }
+
+
+    //↓ヘルパーメソッドたち↓
+    protected void AddCanState<T>() where T : ISkillActor
+    {
+        var skill = state.GetComponentInChildren<T>();
+        if (skill != null)
+            CanState.Add(skill);
+        else
+            Debug.LogWarning($"[BaseSkillChecker] {typeof(T).Name} not found on unit");
     }
 
     public GameObject GetClosest()

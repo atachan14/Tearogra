@@ -1,25 +1,39 @@
-﻿# 開発リスト
- - NextPosMarker
+# 開発リスト
+ - aroCommond toggleの複数選択
+ - foundのビックリ演出。というよりCombatとRunの演出。
+ - BasicSkillsもAdvanceSkillsと一緒にSkillManagerで回す。
+	- FreeCheckr
+
+	- Walk
+		- Checker
+			- SkillState == Free,Walk
+			- Walk_Free == true
+		- Actor
+			- override Execute()
+			- override Enter()
+			- Act()
+	
+	- Found
+		- Checker
+			- SkillState == Free,Walk
+			- Target == true
+		- Actor
+			- Exit
+				- SkillState = Combat_Run? Combat:Run
+	
+	- Combat
+		- Checker
+			- SkillState == Combat 
+			- Target == true
+		- Actor
+			- Executeに処理
 
 # Z
  - 0 : Creature
  - 1 : AroShadow
 
 
-# フロー構造
- - FreeSkillManager
-	- if[State:Free]
-		- ExeFreeSkillList
 
- - CombatSkillManager
-	- if[state:Combat]
-		- ExeCombatSkillList
-			- if(check:true)
-				- exe
-					- enter() [state:this]
-					- yield return StartCoroutine(act)
-					- exit() [state:ex.lastSkill]
- 
 
 # Object構造
 
@@ -78,3 +92,21 @@
 	- PopPoint
 - GameData
 	- 階層とか
+
+	
+- BaseUnit（ここに当たり判定ColliderやUnitState.UnitParams等）
+    - Visual（= 表示用）
+    - Camp（陣営ごとのオブジェクト配置）
+    - Skills
+        - FreeSkills
+        - CombatSkills
+    - CreatureItems（開発はずっと先。消費アイテムやドロップアイテム）
+
+スキルPrefabの基本構造（）
+- SkillParent (ex.Fireball)←SkillParam（Modsを反映した実効値）,IRequireChecker,ISkillActore,ISkillParams（スキル毎の初期値）
+	- Mods
+		- Params
+		- Others
+	- Parts
+		- AttackCollision
+		- VisualSprite
