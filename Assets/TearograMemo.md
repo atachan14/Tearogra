@@ -2,12 +2,17 @@
  - aroCommond toggleの複数選択
  - foundのビックリ演出。というよりCombatとRunの演出。
  - BasicSkillsもAdvanceSkillsと一緒にSkillManagerで回す。
-	- FreeCheckr
+	- Free
+		- Checker
+			- !isAlert
+			- !Walk_Free
+		- Actor
+			- なし
 
 	- Walk
 		- Checker
-			- SkillState == Free,Walk
-			- Walk_Free == true
+			- !isAlert
+			- Walk_Free
 		- Actor
 			- override Execute()
 			- override Enter()
@@ -15,19 +20,29 @@
 	
 	- Found
 		- Checker
-			- SkillState == Free,Walk
+			- !isAlert
+			- Search_Ignore
 			- Target == true
 		- Actor
 			- Exit
-				- SkillState = Combat_Run? Combat:Run
+				- isAlert = true
 	
 	- Combat
 		- Checker
-			- SkillState == Combat 
+			- isAlert
+			- Combat_Run
+			
+		- Actor
+			- override Execute()
+				- !Target{isAlert=false}
+	- Run
+		- Checker
+			- isAlert
+			- !Combat_Run
 			- Target == true
 		- Actor
-			- Executeに処理
-
+			- override Execute()
+				- !Target{isAlert=false}
 # Z
  - 0 : Creature
  - 1 : AroShadow
