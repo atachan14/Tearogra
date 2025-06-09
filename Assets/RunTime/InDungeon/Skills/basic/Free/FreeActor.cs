@@ -1,10 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class FreeActor : MonoBehaviour,ISkillActor
+public class FreeActor : BaseSkillActor
 {
-    public void Execute()
+    public override void Execute()
     {
-       
+        state.ActionSkill = this;
     }
+
 }

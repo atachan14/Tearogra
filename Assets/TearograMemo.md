@@ -1,48 +1,85 @@
 # 開発リスト
  - aroCommond toggleの複数選択
- - foundのビックリ演出。というよりCombatとRunの演出。
- - BasicSkillsもAdvanceSkillsと一緒にSkillManagerで回す。
+ - aroCommond NextPosとかClick関連のスワイプとかの。
+ - foundのビックリ.
+
+ - SkillManager統一
+	 済.NextPosを移動
+	 未.SkillStateをListにする。
+	
 	- Free
 		- Checker
-			- !isAlert
-			- !Walk_Free
+			- !IsAlert && CanState(0) 
 		- Actor
-			- なし
+			- override Enter()　Add.this
+			- override Exit() 空
 
 	- Walk
 		- Checker
-			- !isAlert
-			- Walk_Free
+			!IsAlert && CanState(Free,Walk) && !NextPos==unit.transform.position
 		- Actor
-			- override Execute()
-			- override Enter()
-			- Act()
+			- override Enter() Clear → Add.this
+			- override Exit() if(!NextPos==unit.transform.position){RemoveAt.this}
+			- Act()　処理　最後に座標合わせる。
+
+	- Fetch
+		- Checker
+			!IsAlert && CanState(Free,Walk,Fetch) && Target
+		- Actor
+			- override Enter() Clear → Add.this
+			- override Exit() if(!Target){RemoveAt.this}
+			- Act()　処理
+
+	- Pick
+		- Checker
+			!IsAlert && CanState(Free,Walk,Fetch) && Target
+		- Actor
+			- override Enter() Clear → Add.this
+			- override Exit() RemoveAt.this
+			- Act()　処理　
 	
 	- Found
 		- Checker
-			- !isAlert
-			- Search_Ignore
-			- Target == true
-		- Actor
-			- Exit
-				- isAlert = true
+			!IsAlert && CanState(Free,Walk,Fetch) && Search_Ignore && Target
+		- Actor(Coroutine)
+			- override Enter() Clear → Add.this
+			- override Exit() RemoveAt.this
+			- override Front() 動作→IsAlert=true
 	
+	- Lost
+		- Checker
+			IsAlert && CanState(0) && !Target
+		- Actor
+			- override Enter() Clear → Add.this
+			- override Exit() RemoveAt.this
+			- override Main() 動作
+			- override Back() IsAlert=false
+			- override Exit() RemoveAt.this
+
 	- Combat
 		- Checker
-			- isAlert
-			- Combat_Run
-			
+			- IsAlert && CanState(Combat) && Combat_Run
 		- Actor
-			- override Execute()
-				- !Target{isAlert=false}
+			- override Enter() Add.this
+			- override Exit() RemoveAt.this
+			- Act()　処理
+
 	- Run
 		- Checker
-			- isAlert
-			- !Combat_Run
-			- Target == true
+			- IsAlert && CanState(Run) && !Combat_Run
 		- Actor
-			- override Execute()
-				- !Target{isAlert=false}
+			- override Enter() Add.this
+			- override Exit() RemoveAt.this
+			- Act()　処理
+
+	- SkillA
+		- Checker
+			- IsAlert && CanState(Fight) && Combat_Run
+		- Actor
+			- override Enter() Add.this
+			- override Exit() RemoveAt.this
+			- Act()　処理
+	- 
 # Z
  - 0 : Creature
  - 1 : AroShadow

@@ -5,25 +5,24 @@ using UnityEngine;
 
 public class WalkActor : BaseSkillActor
 {
-    public Vector3 TargetPos { get; set; }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        TargetPos = unit.transform.position;
-    }
-
     public override void Execute()
     {
-        if (Vector3.Distance(TargetPos, unit.transform.position) < 0.01)
-        {
-            unit.transform.position = TargetPos;
-            return;
-        }
-
-        UpdateAngleFromTargetPos(TargetPos);
-        unit.transform.position += AngleToDir() * unitParams.ms * Time.deltaTime;
+        ExeSync();
     }
-    
+
+    protected override void Exit() 
+    {
+        //BasicSkill‚Í–ß‚³‚È‚¢B
+    }
+
+    protected override void ActSync()
+    {
+        UpdateAngleFromTargetPos(state.NextPos);
+        unit.transform.position += AngleToDir() * unitParams.ms * Time.deltaTime;
+
+        if (Vector3.Distance(state.NextPos, unit.transform.position) <= 0.01)
+        {
+            unit.transform.position = state.NextPos;
+        }
+    }
 }

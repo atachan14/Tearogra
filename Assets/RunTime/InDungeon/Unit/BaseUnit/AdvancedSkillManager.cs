@@ -20,6 +20,7 @@ public class AdvancedSkillManager : MonoBehaviour
             {
                 ISkillActor actor = ((MonoBehaviour)checker).GetComponent<ISkillActor>();
                 actor.Execute();
+                return;
             }
         }
     }

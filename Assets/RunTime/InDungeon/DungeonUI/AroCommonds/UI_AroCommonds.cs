@@ -47,7 +47,7 @@ public class UI_AroCommonds : MonoBehaviour
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
             worldPos.z = 0f; // 2D‚¾‚©‚ç z=0 ‚É‚µ‚Æ‚­
 
-            selectedWalkActor.TargetPos = worldPos;
+            selectedState.NextPos = worldPos;
         }
     }
 

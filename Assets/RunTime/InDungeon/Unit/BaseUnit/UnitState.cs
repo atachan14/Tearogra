@@ -5,9 +5,12 @@ using UnityEngine.UIElements;
 
 public class UnitState : MonoBehaviour
 {
-
-    public ISkillActor ActionSkill;
+    public ISkillActor ActionSkill { get; set; }
     [SerializeField] MonoBehaviour debug_ActionSkill;
+    public bool IsAlert { get; set; }
+
+
+    public Vector3 NextPos;
     public float Angle { get; set; } = -91;
 
     public bool Walk_Free { get; set; } = true;
@@ -17,6 +20,7 @@ public class UnitState : MonoBehaviour
     void Start()
     {
         ActionSkill = (ISkillActor)GetComponentInChildren<FreeActor>();
+        NextPos = transform.position;
 
     }
 

@@ -16,6 +16,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     public GameObject TargetUnit { get; set; }
     public Vector3 TargetPos { get; set; }
 
+
     protected virtual void Start()
     {
         CacheReferences();

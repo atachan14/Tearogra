@@ -65,14 +65,15 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
         Exit();
     }
 
-    
-
     protected virtual void Enter()
     {
         lastActor = state.ActionSkill;
         state.ActionSkill = this;
     }
-   
+    protected virtual void Exit()
+    {
+        state.ActionSkill = lastActor;
+    }
     public virtual IEnumerator ActCoroutine()
     {
         yield return StartCoroutine(FrontFrame());
@@ -93,14 +94,25 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     {
         yield break;
     }
-    protected virtual void Exit()
-    {
-        state.ActionSkill = lastActor;
-    }
+   
 
 
 
     // ↓ヘルパーメソッド↓
+
+    //同期処理override用
+    protected void ExeSync()
+    {
+        Enter();
+        ActSync();
+        Exit();
+    }
+
+    protected virtual void ActSync()
+    {
+
+    }
+
     // TargetPosに身体を向ける。
     protected void UpdateAngleFromTargetPos(Vector3 TargetPos)
     {
