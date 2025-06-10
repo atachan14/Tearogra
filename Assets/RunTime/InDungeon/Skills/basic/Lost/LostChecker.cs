@@ -11,11 +11,11 @@ public class LostChecker : BaseSkillChecker
 
     public override bool CheckTarget()
     {
-        return TargetList.Count==0;
+        return TargetList.Count == 0;
     }
     protected override void SetupColRange()
     {
-        col.radius = unitParams.searchRange;          //捜索範囲はunitParamsでFound,Combat,Run共有。
+        col.radius = unitParams.searchRange + 1;          //捜索範囲はunitParamsでFound,Combat,Run共有。
 
     }
 }

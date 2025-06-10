@@ -1,13 +1,8 @@
 # 開発リスト
  - aroCommond toggleの複数選択
  - aroCommond NextPosとかClick関連のスワイプとかの。
- - foundのビックリ.
 
  - SkillManager統一
-	 済.NextPosを移動
-	 済.SkillStateをListにする。
-	 AlertMode
-	
 	- Free
 		- Checker
 			- IsFree && CanState(0) 
@@ -28,7 +23,7 @@
 			IsFree && CanState(Free,Walk,Fetch) && Target
 		- Actor
 			- override Enter() Clear → Add.this
-			- override Exit() if(!Target){RemoveAt.this}
+			- override Exit() if(!Target){Remove.this}
 			- Act()　処理
 
 	- Pick
@@ -51,7 +46,7 @@
 		- Checker
 			IsCombat,IsRun && CanState(0) && !Target
 		- Actor
-			- override Enter() Clear → Add.this
+			- override Enter() Add.this
 			- override Exit() RemoveAt.this
 			- override Main() 動作　→　IsAlert=false
 
