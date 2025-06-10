@@ -3,19 +3,23 @@ using UnityEngine;
 public class WalkChecker : BaseSkillChecker
 {
     
-    protected override void Start()
+    
+    protected override void SetupCanAlertState()
     {
-        base.Start();
+        CanAlert.Add(AlertType.Free);
+    }
+    protected override void SetupCanState()
+    {
+        AddCanState<FreeActor>();
+        AddCanState<WalkActor>();
+    }
+    public override bool CheckTarget()
+    {
 
-        TargetPos = unit.transform.position;　//開幕時に勝手に移動するの防止。
+        return state.NextPos != unit.transform.position;
     }
-    public override bool Check()
-    {
-        return !state.IsAlert
-            && state.Walk_Free
-            && Vector3.Distance(TargetPos, unit.transform.position) >= 0.01;
-    }
-    protected override void SetupColliderRange()
+
+    protected override void SetupColRange()
     {
         //colなしは何も書かない。
     }

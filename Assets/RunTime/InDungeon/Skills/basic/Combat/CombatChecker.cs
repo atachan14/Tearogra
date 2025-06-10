@@ -4,10 +4,18 @@ using static UnityEngine.ParticleSystem;
 public class CombatChecker : BaseSkillChecker
 {
 
-    protected override void SetupColliderRange()
+    protected override void SetupCanAlertState()
     {
-        col.radius = unitParams.searchRange + 1;      //捜索範囲はunitParamsでFound,Combat,Run共有。
+        CanAlert.Add(AlertType.Combat);
     }
+    public override bool CheckTarget()
+    {
+        return PickClosest();
+    }
+    protected override void SetupColRange()
+    {
+        col.radius = unitParams.searchRange + 1f;          //捜索範囲はunitParamsでFound,Combat,Run共有。
 
+    }
 
 }

@@ -3,30 +3,17 @@ using UnityEngine.XR;
 
 public class CombatActor : BaseSkillActor
 {
-    GameObject TargetUnit;
-    Vector3 TargetPos;
-
-    BasicSkillManager bsm;
-
-    protected override void CacheReferences()
-    {
-        base.CacheReferences();
-        bsm = GetComponentInParent<BasicSkillManager>();
-    }
+    Vector3 TargetPos { get; set; }
     public override void Execute()
     {
-        //Targetはcheckerで保持。
-        //いなくなってたらFreeに戻す。
-        TargetUnit = checker.GetClosest();
-        if (TargetUnit == null)
-        {
-            bsm.ChangeActionSkillToFree();
-            return;
-        }
+        ExeSync();
+    }
 
+    protected override void ActSync()
+    {
         //TargetPosを向く
-        TargetPos = TargetUnit.transform.position;
-        UpdateAngleFromTargetPos(TargetPos);
+        TargetPos = checker.TargetUnit.transform.position;
+        UpdateAngleToTarget(TargetPos);
 
         //距離が近すぎたら待機
         //近すぎなかったら向いてる方向に移動。
@@ -38,5 +25,6 @@ public class CombatActor : BaseSkillActor
         {
             unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.spValue) * Time.deltaTime;
         }
+
     }
 }

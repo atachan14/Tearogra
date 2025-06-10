@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AroHeart : MonoBehaviour
 {
-    UnitSkills skills;
+    SkillManager skills;
     int defaultSearcherLayer;
     void Start()
     {
-        skills =GetComponentInParent<Unit>().GetComponentInChildren<UnitSkills>();
+        skills =GetComponentInParent<Unit>().GetComponentInChildren<SkillManager>();
         defaultSearcherLayer = LayerMask.NameToLayer("AroSearcher");
 
         SetLayerToAllRequireCheckers(defaultSearcherLayer);

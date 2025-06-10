@@ -5,26 +5,27 @@
 
  - SkillManager統一
 	 済.NextPosを移動
-	 未.SkillStateをListにする。
+	 済.SkillStateをListにする。
+	 AlertMode
 	
 	- Free
 		- Checker
-			- !IsAlert && CanState(0) 
+			- IsFree && CanState(0) 
 		- Actor
 			- override Enter()　Add.this
 			- override Exit() 空
 
 	- Walk
 		- Checker
-			!IsAlert && CanState(Free,Walk) && !NextPos==unit.transform.position
+			Free && CanState(Free,Walk) && !NextPos==unit.transform.position
 		- Actor
 			- override Enter() Clear → Add.this
-			- override Exit() if(!NextPos==unit.transform.position){RemoveAt.this}
+			- override Exit() if(!NextPos==unit.transform.position){Remove.this}
 			- Act()　処理　最後に座標合わせる。
 
 	- Fetch
 		- Checker
-			!IsAlert && CanState(Free,Walk,Fetch) && Target
+			IsFree && CanState(Free,Walk,Fetch) && Target
 		- Actor
 			- override Enter() Clear → Add.this
 			- override Exit() if(!Target){RemoveAt.this}
@@ -32,33 +33,31 @@
 
 	- Pick
 		- Checker
-			!IsAlert && CanState(Free,Walk,Fetch) && Target
+			IsFree && CanState(Free,Walk,Fetch) && Target
 		- Actor
 			- override Enter() Clear → Add.this
-			- override Exit() RemoveAt.this
+			- override Exit() Remove.this
 			- Act()　処理　
 	
 	- Found
 		- Checker
-			!IsAlert && CanState(Free,Walk,Fetch) && Search_Ignore && Target
+			IsFree && CanState(Free,Walk,Fetch) && Search_Ignore && Target
 		- Actor(Coroutine)
 			- override Enter() Clear → Add.this
-			- override Exit() RemoveAt.this
-			- override Front() 動作→IsAlert=true
-	
+			- override Exit() Remove.this
+			- override Front() 動作　→　IsAlert=true
+ 	
 	- Lost
 		- Checker
-			IsAlert && CanState(0) && !Target
+			IsCombat,IsRun && CanState(0) && !Target
 		- Actor
 			- override Enter() Clear → Add.this
 			- override Exit() RemoveAt.this
-			- override Main() 動作
-			- override Back() IsAlert=false
-			- override Exit() RemoveAt.this
+			- override Main() 動作　→　IsAlert=false
 
 	- Combat
 		- Checker
-			- IsAlert && CanState(Combat) && Combat_Run
+			- IsCombat && CanState(0) && !Target
 		- Actor
 			- override Enter() Add.this
 			- override Exit() RemoveAt.this
@@ -66,7 +65,7 @@
 
 	- Run
 		- Checker
-			- IsAlert && CanState(Run) && !Combat_Run
+			- IsRun && CanState(0) && !Target
 		- Actor
 			- override Enter() Add.this
 			- override Exit() RemoveAt.this
@@ -74,7 +73,7 @@
 
 	- SkillA
 		- Checker
-			- IsAlert && CanState(Fight) && Combat_Run
+			- IsCombat && CanState(0)
 		- Actor
 			- override Enter() Add.this
 			- override Exit() RemoveAt.this

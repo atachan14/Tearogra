@@ -1,20 +1,21 @@
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-public class RunChecker : BaseSkillChecker
+public class LostChecker : BaseSkillChecker
 {
-
     protected override void SetupCanAlertState()
     {
+        CanAlert.Add(AlertType.Combat);
         CanAlert.Add(AlertType.Run);
     }
+
     public override bool CheckTarget()
     {
-        return PickClosest();
+        return TargetList.Count==0;
     }
     protected override void SetupColRange()
     {
-        col.radius = unitParams.searchRange + 1f;          //捜索範囲はunitParamsでFound,Combat,Run共有。
+        col.radius = unitParams.searchRange;          //捜索範囲はunitParamsでFound,Combat,Run共有。
 
     }
 }

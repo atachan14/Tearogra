@@ -2,26 +2,25 @@ using UnityEngine;
 
 public class FoundChecker : BaseSkillChecker
 {
-
-    public override bool Check()
+    protected override void SetupCanAlertState()
     {
-        TargetUnit = GetClosest();
-
-        return TargetUnit
-            && state.Search_Ignore
-            && (state.ActionSkill is FreeActor || state.ActionSkill is WalkActor);
+        CanAlert.Add(AlertType.Free);
+    }
+    protected override void SetupCanState()
+    {
+        AddCanState<FreeActor>();
+        AddCanState<WalkActor>();
     }
 
-    protected override void SetupColliderRange()
+    public override bool CheckTarget()
+    {
+        return state.Search_Ignore && PickClosest();
+    }
+    protected override void SetupColRange()
     {
         col.radius = unitParams.searchRange;          //ë{çıîÕàÕÇÕunitParamsÇ≈Found,Combat,Runã§óLÅB
 
     }
 
-    protected override void SetupCanState()
-    {
-        AddCanState<FreeActor>();
-        AddCanState<WalkActor>();
 
-    }
 }

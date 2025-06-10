@@ -5,7 +5,11 @@ public class FreeActor : BaseSkillActor
 {
     public override void Execute()
     {
-        state.ActionSkill = this;
+        ExeSync();
     }
 
+    protected override void Exit()
+    {
+
+    }
 }

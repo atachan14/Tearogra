@@ -24,7 +24,7 @@ public class BaseSkillConfig : MonoBehaviour
     {
         /* 
          * SkillParams側がApplyParamsで呼び出す。
-         * skillParams.colRange = 0f って感じで値を入れる処理を書いておく。
+         * skillParams.pp = 0 って感じで値を入れる処理を書いておく。
         */
     }
 

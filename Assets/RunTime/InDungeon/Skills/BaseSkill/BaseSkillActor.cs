@@ -34,7 +34,6 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     protected SkillParams skillParams;
     protected BaseSkillChecker checker;
 
-    protected ISkillActor lastActor;
 
 
     protected virtual void Start()
@@ -67,12 +66,11 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
 
     protected virtual void Enter()
     {
-        lastActor = state.ActionSkill;
-        state.ActionSkill = this;
+        state.SkillState.Add(this);
     }
     protected virtual void Exit()
     {
-        state.ActionSkill = lastActor;
+        state.SkillState.Remove(this);
     }
     public virtual IEnumerator ActCoroutine()
     {
@@ -114,10 +112,17 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     }
 
     // TargetPosÇ…êgëÃÇå¸ÇØÇÈÅB
-    protected void UpdateAngleFromTargetPos(Vector3 TargetPos)
+    protected void UpdateAngleToTarget(Vector3 TargetPos)
     {
         Vector3 dir = (TargetPos - unit.transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        state.Angle = angle;
+    }
+    //îΩëŒÅ`Å`ÅB
+    protected void UpdateAngleAwayTarget(Vector3 TargetPos)
+    {
+        Vector3 dir = (TargetPos - unit.transform.position).normalized;
+        float angle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
         state.Angle = angle;
     }
 

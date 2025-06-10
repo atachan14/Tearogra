@@ -9,15 +9,19 @@ public class WalkActor : BaseSkillActor
     {
         ExeSync();
     }
-
+    protected override void Enter()
+    {
+        state.SkillState.Clear();
+        state.SkillState.Add(this);
+    }
     protected override void Exit() 
     {
-        //BasicSkillÇÕñﬂÇ≥Ç»Ç¢ÅB
+        if (state.NextPos == unit.transform.position) { state.SkillState.Remove(this); }
     }
 
     protected override void ActSync()
     {
-        UpdateAngleFromTargetPos(state.NextPos);
+        UpdateAngleToTarget(state.NextPos);
         unit.transform.position += AngleToDir() * unitParams.ms * Time.deltaTime;
 
         if (Vector3.Distance(state.NextPos, unit.transform.position) <= 0.01)

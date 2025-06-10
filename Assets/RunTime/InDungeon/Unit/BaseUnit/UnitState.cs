@@ -1,16 +1,34 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum AlertType
+{
+    Free,
+    Combat,
+    Run
+}
 
 
 public class UnitState : MonoBehaviour
 {
-    public ISkillActor ActionSkill { get; set; }
-    [SerializeField] MonoBehaviour debug_ActionSkill;
+    public List<ISkillActor> SkillState { get; set; } = new();
+    [SerializeField] private List<MonoBehaviour> debug_SkillState = new();
+
     public bool IsAlert { get; set; }
 
+    public AlertType AlertState
+    {
+        get
+        {
+            if (!IsAlert) return AlertType.Free;
+            return Combat_Run ? AlertType.Combat : AlertType.Run;
+        }
+    }
 
-    public Vector3 NextPos;
+
+    public Vector3 NextPos { get; set; }
     public float Angle { get; set; } = -91;
 
     public bool Walk_Free { get; set; } = true;
@@ -19,16 +37,16 @@ public class UnitState : MonoBehaviour
 
     void Start()
     {
-        ActionSkill = (ISkillActor)GetComponentInChildren<FreeActor>();
         NextPos = transform.position;
 
     }
 
     void Update()
     {
-        debug_ActionSkill = (MonoBehaviour)ActionSkill;
+        debug_SkillState = SkillState
+        .OfType<MonoBehaviour>()
+        .ToList();
 
-      
     }
 
 }

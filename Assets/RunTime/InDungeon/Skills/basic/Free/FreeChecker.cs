@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class FreeChecker : BaseSkillChecker
 {
-    public override bool Check()
+    
+    protected override void SetupCanAlertState()
     {
-        return !state.IsAlert
-            && !state.Walk_Free;
+        CanAlert.Add(AlertType.Free);
     }
-    protected override void SetupColliderRange()
+
+    protected override void SetupColRange()
     {
 
     }
