@@ -6,6 +6,10 @@ using Toggle = UnityEngine.UI.Toggle;
 
 public class UI_ArosSelectorField : MonoBehaviour
 {
+    public Unit Aro { get; private set; }
+
+    [SerializeField] UI_ArosSelector ui_ArosSelector;
+
     [SerializeField] Image outLine;
     [SerializeField] Image InnerShadow;
     [SerializeField] Image aroIconImage;
@@ -14,11 +18,8 @@ public class UI_ArosSelectorField : MonoBehaviour
     [SerializeField] Color onColor = Color.green;
     [SerializeField] Color offColor = Color.gray;
 
-    [SerializeField] UI_AroCommonds ui_AroCommonds;
 
 
-
-    public GameObject Aro { get; private set; }
 
     void Start()
     {
@@ -37,11 +38,16 @@ public class UI_ArosSelectorField : MonoBehaviour
     {
         if (toggle.isOn)
         {
-            ui_AroCommonds.SetSelectedAro(Aro);
+            ui_ArosSelector.AddSelectedAro(Aro);
+        }
+
+        if (!toggle.isOn)
+        {
+            ui_ArosSelector.RemoveSelectedAro(Aro);
         }
     }
 
-    public void SetAro(GameObject aro)
+    public void SetAro(Unit aro)
     {
         Aro = aro;
         aroIconImage.sprite = Aro.GetComponentInChildren<IconSprites>().AroSelectorIcon;

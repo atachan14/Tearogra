@@ -15,7 +15,7 @@ public class LostActor : BaseSkillActor
         alertEffect.ExecuteLost();
         yield return new WaitForSeconds(skillParams.front);
 
-        state.NextPos = unit.transform.position;
+        
         state.IsAlert = false;
        
     }

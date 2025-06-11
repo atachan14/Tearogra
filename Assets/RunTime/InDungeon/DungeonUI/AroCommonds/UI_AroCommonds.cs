@@ -12,60 +12,42 @@ public class UI_AroCommonds : MonoBehaviour
 
     Camera MainCam;
 
-    GameObject selectedAro;
+    [SerializeField] UI_ArosSelector arosSelector;
+    Unit lastSelectedAro;
     UnitState selectedState;
-    WalkActor selectedWalkActor;
 
     bool isSettingAro = false;
 
     private void Start()
     {
-        walk_free.onValueChanged.AddListener(_ => ReturnAroCommond());
-        chase_run.onValueChanged.AddListener(_ => ReturnAroCommond());
-        search_ignore.onValueChanged.AddListener(_ => ReturnAroCommond());
-        follow_fixed.onValueChanged.AddListener(_ => ReturnAroCommond());
+        walk_free.onValueChanged.AddListener(_ => AssingAroCommond());
+        chase_run.onValueChanged.AddListener(_ => AssingAroCommond());
+        search_ignore.onValueChanged.AddListener(_ => AssingAroCommond());
+        follow_fixed.onValueChanged.AddListener(_ => AssingAroCommond());
         MainCam = Camera.main;
     }
 
     private void Update()
     {
-        ClickNextPos();
         FollowCam();
-    }
-
-    void ClickNextPos()
-    {
-        if (Input.GetMouseButtonDown(0) && selectedAro)
-        {
-            // UIè„ÇæÇ¡ÇΩÇÁÉXÉãÅ[
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            Vector3 screenPos = Input.mousePosition;
-            screenPos.z = Camera.main.nearClipPlane; // 2DÇ»ÇÁ z ÇÕå≈íËÇ≈OK
-
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
-            worldPos.z = 0f; // 2DÇæÇ©ÇÁ z=0 Ç…ÇµÇ∆Ç≠
-
-            selectedState.NextPos = worldPos;
-        }
     }
 
     void FollowCam()
     {
-        if (follow_fixed.isOn && selectedAro)
+        if (follow_fixed.isOn && lastSelectedAro)
         {
-            Vector3 pos = selectedAro.transform.position;
+            Vector3 pos = lastSelectedAro.transform.position;
             pos.z = MainCam.transform.position.z;
             MainCam.transform.position = pos;
         }
     }
 
-    public void SetSelectedAro(GameObject aro)
+
+
+    public void UpdateSelectedAro(Unit aro)
     {
-        selectedAro = aro;
-        selectedState = selectedAro.GetComponentInChildren<UnitState>();
-        selectedWalkActor = selectedAro.GetComponentInChildren<WalkActor>();
+        lastSelectedAro = aro;
+        selectedState = lastSelectedAro.GetComponentInChildren<UnitState>();
 
         isSettingAro = true;
 
@@ -76,14 +58,18 @@ public class UI_AroCommonds : MonoBehaviour
         isSettingAro = false;
     }
 
-    public void ReturnAroCommond()
+    public void AssingAroCommond()
     {
-
         if (isSettingAro) return;
 
-        selectedState.Walk_Free = walk_free.isOn;
-        selectedState.Combat_Run = chase_run.isOn;
-        selectedState.Search_Ignore = search_ignore.isOn;
-        Debug.Log($"{selectedAro},{walk_free.isOn},{chase_run.isOn},{search_ignore.isOn},{follow_fixed.isOn}");
+        foreach (Unit aro in arosSelector.SelectedAros)
+        {
+            UnitState state = aro.GetComponent<UnitState>();
+            state.Walk_Free = walk_free.isOn;
+            state.Combat_Run = chase_run.isOn;
+            state.Search_Ignore = search_ignore.isOn;
+            Debug.Log($"{aro},{walk_free.isOn},{chase_run.isOn},{search_ignore.isOn},{follow_fixed.isOn}");
+        }
+        
     }
 }

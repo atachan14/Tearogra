@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class MainCamController : MonoBehaviour
 {
+    [SerializeField] float speed = 1f;
 
-    void Start()
+    public void Scroll(Vector3 delta)
     {
-        
+        Vector3 move = new Vector3(-delta.x, -delta.y, 0f) * speed * Time.deltaTime;
+        transform.position += move;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

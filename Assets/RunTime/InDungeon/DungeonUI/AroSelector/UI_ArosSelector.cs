@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,7 +6,9 @@ using UnityEngine.UI;
 public class UI_ArosSelector : MonoBehaviour
 {
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
+    [SerializeField] UI_AroCommonds aroCommonds;
     Toggle lastOnToggle;
+    public List<Unit> SelectedAros  = new();
 
     void Start()
     {
@@ -18,15 +21,26 @@ public class UI_ArosSelector : MonoBehaviour
 
         if (aroList.Length != aroSelectorFields.Length)
         {
-            Debug.LogError("aroSelecterFields‚ÆPlayerData“à‚ÌCreature”‚ªˆê’v‚µ‚Ä‚Ü‚¹‚ñB€‚É‚Ü‚·B");
+            Debug.LogError("aroSelecterFields‚ÆPlayerData“à‚ÌCreature”‚ªˆê’v‚µ‚Ä‚Ü‚¹‚ñB");
             return;
         }
 
         for (int i = 0; i < aroSelectorFields.Length; i++)
         {
-            aroSelectorFields[i].SetAro(aroList[i].gameObject);
+            aroSelectorFields[i].SetAro(aroList[i]);
         }
     }
 
-   
+    public void AddSelectedAro(Unit aro)
+    {
+        SelectedAros.Add(aro);
+        aroCommonds.UpdateSelectedAro(aro);
+    }
+    public void RemoveSelectedAro(Unit aro)
+    {
+        SelectedAros.Remove(aro);
+    }
+
+
+
 }
