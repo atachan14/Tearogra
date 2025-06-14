@@ -7,6 +7,10 @@ public class UnitParams : MonoBehaviour
     public int maxmn = 0;
     public int mn = 0;
 
+    public float size = 1;
+    public float weight = 1;
+
+
     public int pp = 0;
     public int fp = 0;
     public int ip = 0;

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      rizardonUpLeft_0: -8195521706205467289
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

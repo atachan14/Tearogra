@@ -20,7 +20,7 @@ using UnityEngine;
  * ↓
  * BackFrame　動作後の硬直等
  * ↓
- * Exit　実行後後処理　
+ * Exit　実行後処理　
  */
 
 
@@ -62,6 +62,7 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
         Enter();
         yield return StartCoroutine(ActCoroutine());
         Exit();
+        checker.CdStart();
     }
 
     protected virtual void Enter()

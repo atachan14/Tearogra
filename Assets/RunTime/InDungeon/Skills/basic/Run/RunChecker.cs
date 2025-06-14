@@ -4,7 +4,7 @@ using static UnityEngine.ParticleSystem;
 public class RunChecker : BaseSkillChecker
 {
 
-    protected override void SetupCanAlertState()
+    protected override void WriteCanAlertState()
     {
         CanAlert.Add(AlertType.Run);
     }

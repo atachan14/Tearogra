@@ -3,7 +3,7 @@ using static UnityEngine.ParticleSystem;
 
 public class LostChecker : BaseSkillChecker
 {
-    protected override void SetupCanAlertState()
+    protected override void WriteCanAlertState()
     {
         CanAlert.Add(AlertType.Combat);
         CanAlert.Add(AlertType.Run);

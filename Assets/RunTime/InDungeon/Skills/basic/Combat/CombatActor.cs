@@ -17,7 +17,7 @@ public class CombatActor : BaseSkillActor
 
         //‹——£‚ª‹ß‚·‚¬‚½‚ç‘Ò‹@
         //‹ß‚·‚¬‚È‚©‚Á‚½‚çŒü‚¢‚Ä‚é•ûŒü‚ÉˆÚ“®B
-        if (Vector3.Distance(TargetPos, unit.transform.position) < 1f)
+        if (Vector3.Distance(TargetPos, unit.transform.position) < 1.5f)
         {
             return;
         }

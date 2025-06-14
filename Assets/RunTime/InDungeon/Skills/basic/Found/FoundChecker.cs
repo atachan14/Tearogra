@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class FoundChecker : BaseSkillChecker
 {
-    protected override void SetupCanAlertState()
+    protected override void WriteCanAlertState()
     {
         CanAlert.Add(AlertType.Free);
     }
-    protected override void SetupCanState()
+    protected override void WriteCanState()
     {
         AddCanState<FreeActor>();
         AddCanState<WalkActor>();

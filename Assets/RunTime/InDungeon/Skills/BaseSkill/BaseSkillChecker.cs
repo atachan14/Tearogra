@@ -11,6 +11,9 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     protected SkillParams skillParams;
     protected CircleCollider2D col;
 
+    [SerializeField] protected float cd;
+    protected float maxCd;
+
     public List<AlertType> CanAlert { get; set; } = new();
     public List<ISkillActor> NeedSkill { get; set; } = new();
     public List<ISkillActor> CanSkill { get; set; } = new();
@@ -19,13 +22,34 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     public GameObject TargetUnit { get; set; }
     public Vector3 TargetPos { get; set; }
 
+    public void CdStart()
+    {
+        cd = maxCd;
+    }
 
-    protected virtual void Start()
+    void Update()
+    {
+        CdTick();
+    }
+
+    void CdTick()
+    {
+        if (cd <= 0) return;
+
+        cd -= Time.deltaTime;
+        if (cd <= 0f)
+        {
+            cd = 0f;
+        }
+    }
+
+
+    public void SetupChecker()
     {
         CacheReferences();
-        SetupCanAlertState();
-        SetupNeedState();
-        SetupCanState();
+        WriteCanAlertState();
+        WriteNeedState();
+        WriteCanState();
         SetupColRange();
     }
 
@@ -37,17 +61,18 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
         skillParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();
+        maxCd = skillParams.cd;
     }
 
-    protected virtual void SetupCanAlertState()
+    protected virtual void WriteCanAlertState()
     {
         CanAlert.Add(AlertType.Combat);
     }
-    protected virtual void SetupNeedState()
+    protected virtual void WriteNeedState()
     {
 
     }
-    protected virtual void SetupCanState()
+    protected virtual void WriteCanState()
     {
 
     }
@@ -58,6 +83,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     public virtual bool Check()
     {
+        if (cd != 0) return false;
         if (!CheckAlertState()) return false;
         if (!CheckNeedState()) return false;
         if (!CheckCanState()) return false;

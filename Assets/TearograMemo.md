@@ -75,7 +75,8 @@
 			- Act()　処理
 	- 
 # Z
- - 0 : Creature
+ - -1 : ac
+ - 0 : unit
  - 1 : AroShadow
 
 

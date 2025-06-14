@@ -4,10 +4,7 @@ using static UnityEngine.ParticleSystem;
 public class CombatChecker : BaseSkillChecker
 {
 
-    protected override void SetupCanAlertState()
-    {
-        CanAlert.Add(AlertType.Combat);
-    }
+   
     public override bool CheckTarget()
     {
         return PickClosest();
