@@ -11,7 +11,7 @@ public class TearograSetupper : MonoBehaviour
         Screen.SetResolution(1280, 720, false);
         Application.runInBackground = true;
         Time.timeScale = 1f;
-        SetupTriggerMatrix();
+       
 
 
 

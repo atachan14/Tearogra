@@ -9,12 +9,13 @@ public class SlashConfig : BaseSkillConfig
     float priMain = 0.4f;
     float priBack = 0.4f;
 
-    float priAcFrame = 0.3f;
+    float priAcFrame = 0.2f;
     float priAcWeight = 2.0f;
 
-    int priActNum = 3;
+    int priActNum = 2;
 
     int priPd = 50;
+    int priFd = 0;
 
     protected override void SetupInitial()
     {
@@ -31,5 +32,6 @@ public class SlashConfig : BaseSkillConfig
         actNum = priActNum;
 
         pd = priPd;
+        fd = priFd;
     }
 }

@@ -259,6 +259,10 @@ MonoBehaviour:
   fPen: 0
   iPen: 0
   ePen: 0
+  pPenPer: 0
+  fPenPer: 0
+  iPenPer: 0
+  ePenPer: 0
   actNum: 0
   buff: 0
   debuff: 0
@@ -351,7 +355,7 @@ MonoBehaviour:
   acWidth: 1
   acSpeed: 1
   acWeight: 1
-  pd: 0
+  pd: 50
   fd: 0
   id: 0
   ed: 0
@@ -359,6 +363,10 @@ MonoBehaviour:
   fPen: 0
   iPen: 0
   ePen: 0
+  pPenPer: 0
+  fPenPer: 0
+  iPenPer: 0
+  ePenPer: 0
   actNum: 0
   buff: 0
   debuff: 0

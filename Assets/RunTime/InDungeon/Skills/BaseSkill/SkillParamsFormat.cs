@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 public enum ModType
 {
@@ -34,7 +35,28 @@ public enum ModType
     pPen,
     fPen,
     iPen,
-    ePen
+    ePen,
+
+    // PenetrationPercent
+    pPenPer,
+    fPenPer,
+    iPenPer,
+    ePenPer
+}
+public static class ElementColor
+{
+    private static readonly Dictionary<Element, Color> colorMap = new()
+    {
+        { Element.Physic, new Color(0.8f, 0.8f, 0.8f) }, // ÉOÉåÅ[
+        { Element.Fire, new Color(1f, 0.3f, 0.1f) },     // ê‘ån
+        { Element.Ice, new Color(0.5f, 0.8f, 1f) },      // êÖêFån
+        { Element.Volt, new Color(1f, 1f, 0.2f) },       // â©êFån
+    };
+
+    public static Color GetColor(Element e)
+    {
+        return colorMap.TryGetValue(e, out var c) ? c : Color.white;
+    }
 }
 public class SkillParamsFormat : MonoBehaviour
 {
@@ -68,6 +90,12 @@ public class SkillParamsFormat : MonoBehaviour
     public int fPen;
     public int iPen;
     public int ePen;
+
+    [Header("PenetrationPercent")]
+    public int pPenPer;
+    public int fPenPer;
+    public int iPenPer;
+    public int ePenPer;
 
     [Header("Other")]
     public int actNum;

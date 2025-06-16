@@ -40,10 +40,12 @@ public class SlashActor : BaseSkillActor
         for (int i = 0; i < count; i++)
         {
             // UŒ‚”»’èo‚·iacs‚ðŒðŒÝ‚Éj
-            Vector3 offset = AngleToDir() * 1f;
+            Vector3 offset = AngleToDir() * (1 + (i * 0.1f));
             Vector3 spawnPos = transform.position + offset;
+            spawnPos.z = -1f;
 
-            Instantiate(acs[i % 2], spawnPos, Quaternion.Euler(0, 0, state.Angle),transform);
+            BaseSkillAC g = Instantiate(acs[i % 2], spawnPos, Quaternion.Euler(0, 0, state.Angle), transform);
+            Debug.Log($"Spawned AC: {g.gameObject.name}, id: {g.gameObject.GetInstanceID()}, pos: {g.transform.position}");
 
             // skillParams.main ‚ÌŽžŠÔ‚©‚¯‚Ä‚¿‚å‚¢ŒX‚¯‚Äu‚¨Ž«‹V‚µ‚½‚Ü‚Üv‚É‚·‚é
             float duration = skillParams.main;
@@ -52,7 +54,7 @@ public class SlashActor : BaseSkillActor
             while (elapsed < duration)
             {
                 float t = elapsed / duration;
-                float angle = Mathf.Lerp(0f, 30f, t); // 30“xŒX‚¯‚é
+                float angle = Mathf.Lerp(0f, 0, t); // 30“xŒX‚¯‚é
                 unit.transform.rotation = baseRot * Quaternion.Euler(angle, 0f, 0f);
 
                 elapsed += Time.deltaTime;

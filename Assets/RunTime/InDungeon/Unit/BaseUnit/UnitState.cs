@@ -13,6 +13,7 @@ public enum AlertType
 
 public class UnitState : MonoBehaviour
 {
+    public int? AroNum { get; set; } = null;
     public List<ISkillActor> SkillState { get; set; } = new();
     [SerializeField] private List<MonoBehaviour> debug_SkillState = new();
 

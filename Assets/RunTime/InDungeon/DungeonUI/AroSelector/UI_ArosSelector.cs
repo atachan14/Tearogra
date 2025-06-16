@@ -8,7 +8,7 @@ public class UI_ArosSelector : MonoBehaviour
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
     [SerializeField] UI_AroCommonds aroCommonds;
     Toggle lastOnToggle;
-    public List<Unit> SelectedAros  = new();
+    public List<Unit> SelectedAros = new();
 
     void Start()
     {
@@ -19,15 +19,16 @@ public class UI_ArosSelector : MonoBehaviour
     {
         var aroList = PlayerData.Instance.GetComponentsInChildren<Unit>();
 
-        if (aroList.Length != aroSelectorFields.Length)
+        if (aroList.Length > aroSelectorFields.Length)
         {
-            Debug.LogError("aroSelecterFields‚ÆPlayerData“à‚ÌCreature”‚ªˆê’v‚µ‚Ä‚Ü‚¹‚ñB");
+            Debug.LogError("aroSelecterFields‚æ‚èPlayerData“à‚ÌCreature”‚ª‘½‚¢‚Å‚·B");
             return;
         }
 
-        for (int i = 0; i < aroSelectorFields.Length; i++)
+        for (int i = 0; i < aroList.Length; i++)
         {
             aroSelectorFields[i].SetAro(aroList[i]);
+            aroList[i].GetComponent<UnitState>().AroNum = i;
         }
     }
 

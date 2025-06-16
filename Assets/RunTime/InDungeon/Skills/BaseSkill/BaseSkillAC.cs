@@ -5,8 +5,26 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BaseSkillAC : MonoBehaviour
 {
-    SkillParams skillParams;
-    protected Rigidbody2D rb;
+    SkillParams sParams;
+    UnitParams uParams;
+
+    public int outPd;
+    public int outFd;
+    public int outId;
+    public int outVd;
+
+    public int outPPen;
+    public int outFPen;
+    public int outIPen;
+    public int outVPen;
+
+    public int outPPenPer;
+    public int outFPenPer;
+    public int outIPenPer;
+    public int outVPenPer;
+
+
+
 
 
     [Header("AttackCollision")]
@@ -23,79 +41,80 @@ public class BaseSkillAC : MonoBehaviour
     protected int ed;
 
     [Header("Penetration")]
-    protected int pPen;
-    protected int fPen;
-    protected int iPen;
-    protected int ePen;
+    public int pPen;
+    public int fPen;
+    public int iPen;
+    public int ePen;
 
-    Vector2 moveDirection;
+    [Header("PenetrationPercent")]
+    public int pPenPer;
+    public int fPenPer;
+    public int iPenPer;
+    public int ePenPer;
 
     private void Start()
     {
-        skillParams = GetComponentInParent<SkillParams>();
-        SetupAC(skillParams);
+        sParams = GetComponentInParent<SkillParams>();
+        uParams = GetComponentInParent<UnitParams>();
+
+        SetupAC();
         StartCoroutine(AutoDestroyAfterFrame());
     }
-    public void SetupAC(SkillParams param)
+    public void SetupAC()
     {
-        SetupParams(param);
+        SetupParams();
         SetupCols();
-        SetupMoveDir(); // ← 追加
     }
 
-    private void SetupMoveDir()
+
+
+    void SetupParams()
     {
-        UnitState state = GetComponentInParent<UnitState>(); // 仮：UnitStateコンポーネント持ってる親がいる前提
+        acFrame = sParams.acFrame;
+        acLength = sParams.acLength;
+        acWidth = sParams.acWidth;
+        acSpeed = sParams.acSpeed;
+        acWeight = sParams.acWeight;
 
-        if (state != null)
-        {
-            float angleRad = state.Angle * Mathf.Deg2Rad;
-            moveDirection = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad)).normalized;
-        }
-        else
-        {
-            Debug.Log("state==null");
-            moveDirection = Vector2.right; // フォールバック：とりあえず右向き
-        }
+        pd = sParams.pd;
+        fd = sParams.fd;
+        id = sParams.id;
+        ed = sParams.ed;
 
-    }
+        pPen = sParams.pPen;
+        fPen = sParams.fPen;
+        iPen = sParams.iPen;
+        ePen = sParams.ePen;
 
-    void SetupParams(SkillParams param)
-    {
-        acFrame = param.acFrame;
-        acLength = param.acLength;
-        acWidth = param.acWidth;
-        acSpeed = param.acSpeed;
-        acWeight = param.acWeight;
+        pPenPer = sParams.pPenPer;
+        fPenPer = sParams.fPenPer;
+        iPenPer = sParams.iPenPer;
+        ePenPer = sParams.ePenPer;
 
-        pd = param.pd;
-        fd = param.fd;
-        id = param.id;
-        ed = param.ed;
 
-        pPen = param.pPen;
-        fPen = param.fPen;
-        iPen = param.iPen;
-        ePen = param.ePen;
+        outPd = pd * uParams.pb / 100;
+        outFd = fd * uParams.fb / 100;
+        outId = id * uParams.ib / 100;
+        outVd = ed * uParams.vb / 100;
+
+        outPPen = pPen + uParams.pPen;
+        outFPen = fPen + uParams.pPen;
+        outIPen = iPen + uParams.iPen;
+        outVPen = fPen + uParams.pPen;
+
+        outPPenPer = pPenPer + uParams.pPenPer;
+        outFPenPer = fPenPer + uParams.fPenPer;
+        outIPenPer = iPenPer + uParams.iPenPer;
+        outVPenPer = ePenPer + uParams.vPenPer;
+
     }
 
     void SetupCols()
     {
-        SetupRb();
         SetupCollider();
 
     }
-    protected virtual void SetupRb()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null) return;
 
-        rb.gravityScale = 0f;                  // 重力はいらないのでオフにする
-        rb.linearDamping = 0f;                 // 滑らせたいなら0、止めたいなら1〜3くらい
-        rb.mass = acWeight;
-
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 回転は完全にロック
-    }
 
     void SetupCollider()
     {
@@ -107,11 +126,7 @@ public class BaseSkillAC : MonoBehaviour
             return;
         }
 
-        if (!rb)
-        {
-            // Rigidbodyがなかったらトリガーにする。
-            col.isTrigger = true;
-        }
+        col.isTrigger = true;
 
         if (col is BoxCollider2D box)
         {
@@ -139,13 +154,6 @@ public class BaseSkillAC : MonoBehaviour
         yield return new WaitForSeconds(acFrame);
         Destroy(gameObject);
     }
-    private void Update()
-    {
-        if (rb != null)
-        {
-            Vector2 nextPos = rb.position + moveDirection * acSpeed * Time.deltaTime;
-            rb.MovePosition(nextPos);
-        }
-    }
+
 
 }
