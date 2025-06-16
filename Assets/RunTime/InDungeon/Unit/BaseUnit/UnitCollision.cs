@@ -49,7 +49,6 @@ public class UnitCollision : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Hit AC: {collision.gameObject.name}, id: {collision.gameObject.GetInstanceID()}");
         BaseSkillAC ac = collision.GetComponent<BaseSkillAC>();
 
         if (ac == null)
@@ -60,30 +59,34 @@ public class UnitCollision : MonoBehaviour
         DmgExe(ac);
         MassExe();
         UI_DmgDisplayExe();
-       
+
     }
 
     void DmgExe(BaseSkillAC ac)
     {
+        int? aroId = ac.uParams.AroId;
         // 属性別に処理をまとめる
-        TryTakeDamage(Element.Physic, ac.outPd, ac.outPPen, ac.outPPenPer, unitParams.pr);
-        TryTakeDamage(Element.Fire, ac.outFd, ac.outFPen, ac.outFPenPer, unitParams.fr);
-        TryTakeDamage(Element.Ice, ac.outId, ac.outIPen, ac.outIPenPer, unitParams.ir);
-        TryTakeDamage(Element.Volt, ac.outVd, ac.outVPen, ac.outVPenPer, unitParams.vr);
+        TryTakeDamage(Element.Physic, ac.outPd, ac.outPPen, ac.outPPenPer, unitParams.pr, aroId);
+        TryTakeDamage(Element.Fire, ac.outFd, ac.outFPen, ac.outFPenPer, unitParams.fr, aroId);
+        TryTakeDamage(Element.Ice, ac.outId, ac.outIPen, ac.outIPenPer, unitParams.ir, aroId);
+        TryTakeDamage(Element.Volt, ac.outVd, ac.outVPen, ac.outVPenPer, unitParams.vr, aroId);
     }
-    void TryTakeDamage(Element element, int xd, int xp, int xpp, int xr)
+    void TryTakeDamage(Element element, int xd, int xp, int xpp, int xr, int? aroId)
     {
         if (xd <= 0) return;
 
         int dmg = CalcTakeDamage(xd, xp, xpp, xr);
 
-        ShowDmg(element,dmg);
-        unitParams.ReceiveDmg(dmg);
-        
+        ShowDmg(element, dmg);
+        unitParams.ReportDmg(dmg);
 
+        if (aroId != null)
+        {
+            UI_DmgGraph.Instance.ReportDamage((int)aroId, element, dmg);
+        }
     }
 
-    void ShowDmg(Element e,int d)
+    void ShowDmg(Element e, int d)
     {
         GameObject dmgEffect = Instantiate(dmgDisplay, transform);
         dmgEffect.GetComponent<FloatingText>().InitDamage(e, d);

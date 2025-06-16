@@ -47,7 +47,7 @@ public static class ElementColor
 {
     private static readonly Dictionary<Element, Color> colorMap = new()
     {
-        { Element.Physic, new Color(0.8f, 0.8f, 0.8f) }, // グレー
+        { Element.Physic, new Color(0.5f, 0.5f, 0.5f) }, // グレー
         { Element.Fire, new Color(1f, 0.3f, 0.1f) },     // 赤系
         { Element.Ice, new Color(0.5f, 0.8f, 1f) },      // 水色系
         { Element.Volt, new Color(1f, 1f, 0.2f) },       // 黄色系

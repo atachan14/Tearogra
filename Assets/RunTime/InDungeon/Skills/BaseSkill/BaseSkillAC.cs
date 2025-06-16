@@ -5,8 +5,8 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BaseSkillAC : MonoBehaviour
 {
-    SkillParams sParams;
-    UnitParams uParams;
+    public SkillParams sParams;
+    public UnitParams uParams;
 
     public int outPd;
     public int outFd;

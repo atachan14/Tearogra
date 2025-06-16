@@ -5,6 +5,8 @@ public class UnitParams : MonoBehaviour
 {
     UnitState state;
     StatusBar statusBar;
+    public int? AroId { get; set; } = null;
+
     public int maxhp = 1000;
     public int hp = 1000;
     public int maxmn = 1000;
@@ -44,10 +46,11 @@ public class UnitParams : MonoBehaviour
 
   
 
-    public void ReceiveDmg(int dmg)
+    public void ReportDmg(int dmg)
     {
         hp -= dmg;
         statusBar.HpRefresh();
+        
         if (hp <= 0) Death();
     }
 

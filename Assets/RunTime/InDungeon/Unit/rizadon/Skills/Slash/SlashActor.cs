@@ -45,8 +45,7 @@ public class SlashActor : BaseSkillActor
             spawnPos.z = -1f;
 
             BaseSkillAC g = Instantiate(acs[i % 2], spawnPos, Quaternion.Euler(0, 0, state.Angle), transform);
-            Debug.Log($"Spawned AC: {g.gameObject.name}, id: {g.gameObject.GetInstanceID()}, pos: {g.transform.position}");
-
+          
             // skillParams.main ‚ÌŠÔ‚©‚¯‚Ä‚¿‚å‚¢ŒX‚¯‚Äu‚¨«‹V‚µ‚½‚Ü‚Üv‚É‚·‚é
             float duration = skillParams.main;
             float elapsed = 0f;
