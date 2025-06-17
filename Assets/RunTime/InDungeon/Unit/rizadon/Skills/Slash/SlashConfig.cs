@@ -10,7 +10,7 @@ public class SlashConfig : BaseSkillConfig
     float priBack = 0.4f;
 
     float priAcFrame = 0.2f;
-    float priAcWeight = 2.0f;
+    float priAcWeight = 20;
 
     int priActNum = 2;
 

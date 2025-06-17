@@ -42,8 +42,10 @@ public class UnitCollision : MonoBehaviour
 
     protected virtual void SetupRb()
     {
-        //メソッドごともういらんかも。
         if (rb == null) return;
+
+        rb.mass = unitParams.weight;
+        rb.linearDamping = 50;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 回転は完全にロック
     }
 
@@ -57,8 +59,7 @@ public class UnitCollision : MonoBehaviour
         }
 
         DmgExe(ac);
-        MassExe();
-        UI_DmgDisplayExe();
+        MassExe(ac);
 
     }
 
@@ -78,6 +79,7 @@ public class UnitCollision : MonoBehaviour
         int dmg = CalcTakeDamage(xd, xp, xpp, xr);
 
         ShowDmg(element, dmg);
+
         unitParams.ReportDmg(dmg);
 
         if (aroId != null)
@@ -106,14 +108,20 @@ public class UnitCollision : MonoBehaviour
         return Mathf.Max(0, takeDamage); // 念のためマイナス対策
     }
 
-    void MassExe()
+    public void MassExe(BaseSkillAC ac)
     {
+       
 
+        // 吹っ飛ぶ方向
+        Vector2 knockbackDir = (transform.position - ac.transform.position).normalized;
+
+        // 攻撃スキルの力をそのまま使う（質量でノックバック差が出る）
+        float forcePower = ac.acWeight;
+
+        // ガツンとノックバック
+        rb.AddForce(knockbackDir * forcePower, ForceMode2D.Impulse);
     }
 
-    void UI_DmgDisplayExe()
-    {
 
-    }
 
 }

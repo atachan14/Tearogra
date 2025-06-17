@@ -13,7 +13,7 @@ public class UnitParams : MonoBehaviour
     public int mn = 1000;
 
     public float size = 1;
-    public float weight = 1;
+    public float weight = 1f;
 
 
     public int pb = 100;

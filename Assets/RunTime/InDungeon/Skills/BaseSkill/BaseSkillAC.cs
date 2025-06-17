@@ -32,7 +32,7 @@ public class BaseSkillAC : MonoBehaviour
     protected float acLength;
     protected float acWidth;
     protected float acSpeed;
-    protected float acWeight;
+    public float acWeight;
 
     [Header("Damage")]
     protected int pd;
@@ -41,16 +41,16 @@ public class BaseSkillAC : MonoBehaviour
     protected int ed;
 
     [Header("Penetration")]
-    public int pPen;
-    public int fPen;
-    public int iPen;
-    public int ePen;
+    protected int pPen;
+    protected int fPen;
+    protected int iPen;
+    protected int ePen;
 
     [Header("PenetrationPercent")]
-    public int pPenPer;
-    public int fPenPer;
-    public int iPenPer;
-    public int ePenPer;
+    protected int pPenPer;
+    protected int fPenPer;
+    protected int iPenPer;
+    protected int ePenPer;
 
     private void Start()
     {
