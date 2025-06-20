@@ -8,7 +8,7 @@ using UnityEngine;
 public class SkillParams : SkillParamsFormat
 {
 
-    public List<ModType> canMods ;
+    public List<ModParamType> canMods ;
     BaseSkillConfig config;
     BaseSkillChecker checker;
 

@@ -35,22 +35,22 @@ public class BaseSkillAC : MonoBehaviour
     public float acWeight;
 
     [Header("Damage")]
-    protected int pd;
-    protected int fd;
-    protected int id;
-    protected int ed;
+    protected float pd;
+    protected float fd;
+    protected float id;
+    protected float ed;
 
     [Header("Penetration")]
-    protected int pPen;
-    protected int fPen;
-    protected int iPen;
-    protected int ePen;
+    protected float pPen;
+    protected float fPen;
+    protected float iPen;
+    protected float ePen;
 
     [Header("PenetrationPercent")]
-    protected int pPenPer;
-    protected int fPenPer;
-    protected int iPenPer;
-    protected int ePenPer;
+    protected float pPenPer;
+    protected float fPenPer;
+    protected float iPenPer;
+    protected float ePenPer;
 
     private void Start()
     {
@@ -92,20 +92,20 @@ public class BaseSkillAC : MonoBehaviour
         ePenPer = sParams.ePenPer;
 
 
-        outPd = pd * uParams.pb / 100;
-        outFd = fd * uParams.fb / 100;
-        outId = id * uParams.ib / 100;
-        outVd = ed * uParams.vb / 100;
+        outPd = (int)pd * uParams.pb / 100;
+        outFd = (int)fd * uParams.fb / 100;
+        outId = (int)id * uParams.ib / 100;
+        outVd = (int)ed * uParams.vb / 100;
 
-        outPPen = pPen + uParams.pPen;
-        outFPen = fPen + uParams.pPen;
-        outIPen = iPen + uParams.iPen;
-        outVPen = fPen + uParams.pPen;
+        outPPen = (int)pPen + uParams.pPen;
+        outFPen = (int)fPen + uParams.pPen;
+        outIPen = (int)iPen + uParams.iPen;
+        outVPen = (int)fPen + uParams.pPen;
 
-        outPPenPer = pPenPer + uParams.pPenPer;
-        outFPenPer = fPenPer + uParams.fPenPer;
-        outIPenPer = iPenPer + uParams.iPenPer;
-        outVPenPer = ePenPer + uParams.vPenPer;
+        outPPenPer = (int)pPenPer + uParams.pPenPer;
+        outFPenPer = (int)fPenPer + uParams.fPenPer;
+        outIPenPer = (int)iPenPer + uParams.iPenPer;
+        outVPenPer = (int)ePenPer + uParams.vPenPer;
 
     }
 

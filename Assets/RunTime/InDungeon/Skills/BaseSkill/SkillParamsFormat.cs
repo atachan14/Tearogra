@@ -1,48 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-public enum ModType
-{
-    // Frame
-    front,
-    main,
-    back,
 
-
-    // Require
-    colRange,
-    ct,
-    targetCount,
-
-    // AttackCollision
-    acFrame,
-    acLength,
-    acWidth,
-    acSpeed,
-
-    // Other
-    actNum,
-    buff,
-    debuff,
-    spValue,
-
-    // Damage
-    pd,
-    fd,
-    id,
-    ed,
-
-    // Penetration
-    pPen,
-    fPen,
-    iPen,
-    ePen,
-
-    // PenetrationPercent
-    pPenPer,
-    fPenPer,
-    iPenPer,
-    ePenPer
-}
 public static class ElementColor
 {
     private static readonly Dictionary<Element, Color> colorMap = new()
@@ -70,7 +28,7 @@ public class SkillParamsFormat : MonoBehaviour
     [Header("Require")]
     public float colRange = 999;
     public float cd;
-    public int targetCount;
+    public float targetCount;
 
     [Header("AttackCollision")]
     public float acFrame;
@@ -80,27 +38,32 @@ public class SkillParamsFormat : MonoBehaviour
     public float acWeight = 1;
 
     [Header("Damage")]
-    public int pd;
-    public int fd;
-    public int id;
-    public int ed;
+    public float pd;
+    public float fd;
+    public float id;
+    public float ed;
 
     [Header("Penetration")]
-    public int pPen;
-    public int fPen;
-    public int iPen;
-    public int ePen;
+    public float pPen;
+    public float fPen;
+    public float iPen;
+    public float ePen;
 
     [Header("PenetrationPercent")]
-    public int pPenPer;
-    public int fPenPer;
-    public int iPenPer;
-    public int ePenPer;
+    public float pPenPer;
+    public float fPenPer;
+    public float iPenPer;
+    public float ePenPer;
 
     [Header("Other")]
-    public int actNum;
+    public float actNum;
     public float buff;
     public float debuff;
     public float spValue;
 
+    
+    public float Round1(float value)
+    {
+        return Mathf.Round(value * 10f) / 10f;
+    }
 }

@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class BaseSkillConfig : SkillParamsFormat
 {
-    public List<ModType> canMods  = new();
+    public List<ModParamType> canMods  = new();
 
 
 
