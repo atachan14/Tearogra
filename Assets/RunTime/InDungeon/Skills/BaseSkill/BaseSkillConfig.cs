@@ -1,76 +1,34 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 実装予定
-//  CanModsCreate: みたいな。
-//  使用する値のModParamsをCanModsに入れる。
-//  CanModsをSkillParamsに入れる処理はSkillParams.ApplyParamsに実装済み。            
-
-
-public class BaseSkillConfig : SkillParamsFormat
+[System.Serializable]
+public struct ParamValue
 {
-    public List<ModParamType> canMods  = new();
+    public ParamType type;
+    public float value;
+}
 
+public class BaseSkillConfig : MonoBehaviour
+{
+    protected Dictionary<ParamType, float> configMap = new();
 
-
-    private void Awake()
+    // 継承先がここをoverrideして追加パラメーターを定義
+    protected virtual void InitParamMap()
     {
-        SetupInitial();
-    }
-    protected virtual void SetupInitial()
-    {
-        //初期値の設定
-    }
-
-    private void Start()
-    {
-        CashRefarence();
-    }
-
-    protected virtual void CashRefarence()
-    {
+        // 共通のデフォルト値をここに書く
+        configMap[ParamType.acLength] = 1f;
+        configMap[ParamType.acWidth] = 1f;
+        configMap[ParamType.acSpeed] = 1f;
+        configMap[ParamType.acWeight] = 1f;
     }
 
-    public virtual void ExportParams(SkillParams skillParams)    //SkillParamsから呼び出される
+    protected virtual void Awake()
     {
-        skillParams.canMods = canMods;
-        // Frame
-        skillParams.front = front;
-        skillParams.main = main;
-        skillParams.back = back;                                                                                                                                            
-
-        // Require
-        skillParams.colRange = colRange;
-        skillParams.cd = cd;
-        skillParams.targetCount = targetCount;
-
-        // AttackCollision
-        skillParams.acFrame = acFrame;
-        skillParams.acLength = acLength;
-        skillParams.acWidth = acWidth;
-        skillParams.acSpeed = acSpeed;
-        skillParams.acWeight = acWeight;
-
-        // Other
-        skillParams.actNum = actNum;
-        skillParams.buff = buff;
-        skillParams.debuff = debuff;
-        skillParams.spValue = spValue;
-
-        // Damage
-        skillParams.pd = pd;
-        skillParams.fd = fd;
-        skillParams.id = id;
-        skillParams.ed = ed;
-
-        // Penetration
-        skillParams.pPen = pPen;
-        skillParams.fPen = fPen;
-        skillParams.iPen = iPen;
-        skillParams.ePen = ePen;
+        InitParamMap();
     }
 
-
-
+    public Dictionary<ParamType, float> GetConfigMap()
+    {
+        return new Dictionary<ParamType, float>(configMap);
+    }
 }

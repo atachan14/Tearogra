@@ -1,120 +1,21 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BaseSkillAC : MonoBehaviour
 {
     public SkillParams sParams;
     public UnitParams uParams;
-
-    public int outPd;
-    public int outFd;
-    public int outId;
-    public int outVd;
-
-    public int outPPen;
-    public int outFPen;
-    public int outIPen;
-    public int outVPen;
-
-    public int outPPenPer;
-    public int outFPenPer;
-    public int outIPenPer;
-    public int outVPenPer;
-
-
-
-
-
-    [Header("AttackCollision")]
-    protected float acFrame;
-    protected float acLength;
-    protected float acWidth;
-    protected float acSpeed;
+    
     public float acWeight;
-
-    [Header("Damage")]
-    protected float pd;
-    protected float fd;
-    protected float id;
-    protected float ed;
-
-    [Header("Penetration")]
-    protected float pPen;
-    protected float fPen;
-    protected float iPen;
-    protected float ePen;
-
-    [Header("PenetrationPercent")]
-    protected float pPenPer;
-    protected float fPenPer;
-    protected float iPenPer;
-    protected float ePenPer;
 
     private void Start()
     {
         sParams = GetComponentInParent<SkillParams>();
         uParams = GetComponentInParent<UnitParams>();
 
-        SetupAC();
+        SetupCollider();
         StartCoroutine(AutoDestroyAfterFrame());
     }
-    public void SetupAC()
-    {
-        SetupParams();
-        SetupCols();
-    }
-
-
-
-    void SetupParams()
-    {
-        acFrame = sParams.acFrame;
-        acLength = sParams.acLength;
-        acWidth = sParams.acWidth;
-        acSpeed = sParams.acSpeed;
-        acWeight = sParams.acWeight;
-
-        pd = sParams.pd;
-        fd = sParams.fd;
-        id = sParams.id;
-        ed = sParams.ed;
-
-        pPen = sParams.pPen;
-        fPen = sParams.fPen;
-        iPen = sParams.iPen;
-        ePen = sParams.ePen;
-
-        pPenPer = sParams.pPenPer;
-        fPenPer = sParams.fPenPer;
-        iPenPer = sParams.iPenPer;
-        ePenPer = sParams.ePenPer;
-
-
-        outPd = (int)pd * uParams.pb / 100;
-        outFd = (int)fd * uParams.fb / 100;
-        outId = (int)id * uParams.ib / 100;
-        outVd = (int)ed * uParams.vb / 100;
-
-        outPPen = (int)pPen + uParams.pPen;
-        outFPen = (int)fPen + uParams.pPen;
-        outIPen = (int)iPen + uParams.iPen;
-        outVPen = (int)fPen + uParams.pPen;
-
-        outPPenPer = (int)pPenPer + uParams.pPenPer;
-        outFPenPer = (int)fPenPer + uParams.fPenPer;
-        outIPenPer = (int)iPenPer + uParams.iPenPer;
-        outVPenPer = (int)ePenPer + uParams.vPenPer;
-
-    }
-
-    void SetupCols()
-    {
-        SetupCollider();
-
-    }
-
 
     void SetupCollider()
     {
@@ -127,6 +28,9 @@ public class BaseSkillAC : MonoBehaviour
         }
 
         col.isTrigger = true;
+
+        var acLength = sParams.Get(ParamType.acLength);
+        var acWidth = sParams.Get(ParamType.acWidth);
 
         if (col is BoxCollider2D box)
         {
@@ -143,17 +47,32 @@ public class BaseSkillAC : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("未対応Collider2DType" + col.GetType());
+            Debug.LogWarning("未対応Collider2DType: " + col.GetType());
         }
     }
 
-
-
     private IEnumerator AutoDestroyAfterFrame()
     {
-        yield return new WaitForSeconds(acFrame);
+        yield return new WaitForSeconds(sParams.Get(ParamType.acFrame));
         Destroy(gameObject);
     }
 
 
+    // 🔽 Damage計算系（都度使うとき用）
+    public int GetOutPd() => (int)(sParams.Get(ParamType.pd) * uParams.pb / 100f);
+    public int GetOutFd() => (int)(sParams.Get(ParamType.fd) * uParams.fb / 100f);
+    public int GetOutId() => (int)(sParams.Get(ParamType.id) * uParams.ib / 100f);
+    public int GetOutVd() => (int)(sParams.Get(ParamType.vd) * uParams.vb / 100f);
+
+    // 🔽 Penetration値
+    public int GetOutPPen() => (int)sParams.Get(ParamType.pPen) + uParams.pPen;
+    public int GetOutFPen() => (int)sParams.Get(ParamType.fPen) + uParams.fPen;
+    public int GetOutIPen() => (int)sParams.Get(ParamType.iPen) + uParams.iPen;
+    public int GetOutVPen() => (int)sParams.Get(ParamType.vPen) + uParams.vPen;
+
+    // 🔽 Penetrationパーセンテージ
+    public int GetOutPPenPer() => (int)sParams.Get(ParamType.pPenPer) + uParams.pPenPer;
+    public int GetOutFPenPer() => (int)sParams.Get(ParamType.fPenPer) + uParams.fPenPer;
+    public int GetOutIPenPer() => (int)sParams.Get(ParamType.iPenPer) + uParams.iPenPer;
+    public int GetOutVPenPer() => (int)sParams.Get(ParamType.vPenPer) + uParams.vPenPer;
 }

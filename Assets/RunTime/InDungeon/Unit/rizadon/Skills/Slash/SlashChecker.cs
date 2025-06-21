@@ -9,8 +9,8 @@ public class SlashChecker : BaseSkillChecker
 
     protected override void SetupColRange()
     {
-        col.radius = skillParams.colRange;
-        Debug.Log($"SlashChecker skillParams.colRange:{skillParams.colRange}");
+        col.radius = skillParams.Get(ParamType.colRange);
+        Debug.Log($"SlashChecker skillParams.colRange:{skillParams.Get(ParamType.colRange)}");
         Debug.Log($"SlashChecker col.radius:{col.radius}");
     }
 }

@@ -23,7 +23,7 @@ public class CombatActor : BaseSkillActor
         }
         else
         {
-            unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.spValue) * Time.deltaTime;
+            unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.Get(ParamType.bonusValue)) * Time.deltaTime;
         }
 
     }

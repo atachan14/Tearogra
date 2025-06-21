@@ -1,6 +1,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ParamType
+{
+    // Frame
+    front,
+    main,
+    back,
+
+
+    // Require
+    colRange,
+    cd,
+    targetCount,
+
+    // AttackCollision
+    acFrame,
+    acLength,
+    acWidth,
+    acSpeed,
+    acWeight,
+
+    // Other
+    actNum,
+    buff,
+    debuff,
+    bonusValue,
+
+    // Damage
+    pd,
+    fd,
+    id,
+    vd,
+
+    // Penetration
+    pPen,
+    fPen,
+    iPen,
+    vPen,
+
+    // PenetrationPercent
+    pPenPer,
+    fPenPer,
+    iPenPer,
+    vPenPer
+
+}
+
 public static class ElementColor
 {
     private static readonly Dictionary<Element, Color> colorMap = new()

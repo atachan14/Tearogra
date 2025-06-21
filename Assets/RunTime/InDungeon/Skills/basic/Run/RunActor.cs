@@ -19,6 +19,6 @@ public class RunActor : BaseSkillActor
         UpdateAngleAwayTarget(TargetPos);
 
         //Œü‚¢‚Ä‚é•ûŒü‚ÉˆÚ“®B
-        unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.spValue) * Time.deltaTime;
+        unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.Get(ParamType.bonusValue)) * Time.deltaTime;
     }
 }

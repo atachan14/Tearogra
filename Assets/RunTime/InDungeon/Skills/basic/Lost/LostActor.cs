@@ -13,7 +13,7 @@ public class LostActor : BaseSkillActor
     protected override IEnumerator FrontFrame()
     {
         alertEffect.ExecuteLost();
-        yield return new WaitForSeconds(skillParams.front);
+        yield return new WaitForSeconds(skillParams.Get(ParamType.front));
 
         
         state.IsAlert = false;

@@ -9,7 +9,7 @@ public class SlashActor : BaseSkillActor
     int count = 1;
     protected override IEnumerator FrontFrame()
     {
-        float duration = skillParams.front;
+        float duration = skillParams.Get(ParamType.front);
         float elapsed = 0f;
 
         Vector3 startPos = unit.transform.position;
@@ -47,7 +47,7 @@ public class SlashActor : BaseSkillActor
             BaseSkillAC g = Instantiate(acs[i % 2], spawnPos, Quaternion.Euler(0, 0, state.Angle), transform);
           
             // skillParams.main ‚ÌŠÔ‚©‚¯‚Ä‚¿‚å‚¢ŒX‚¯‚Äu‚¨«‹V‚µ‚½‚Ü‚Üv‚É‚·‚é
-            float duration = skillParams.main;
+            float duration = skillParams.Get(ParamType.main);
             float elapsed = 0f;
 
             while (elapsed < duration)
@@ -70,7 +70,7 @@ public class SlashActor : BaseSkillActor
         Quaternion startRot = unit.transform.rotation;
         Quaternion targetRot = Quaternion.identity;
 
-        float duration = skillParams.back;
+        float duration = skillParams.Get(ParamType.back);
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -85,7 +85,7 @@ public class SlashActor : BaseSkillActor
         unit.transform.rotation = targetRot;
 
         count++;
-        if (count > skillParams.actNum)
+        if (count > skillParams.Get(ParamType.actNum))
         {
             count = 1;
         }

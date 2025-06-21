@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class FoundConfig : BaseSkillConfig
 {
-    public override void ExportParams(SkillParams skillParams)
+    protected override void InitParamMap()
     {
-        skillParams.front = 1f;      //発見時の硬直
+        base.InitParamMap(); // 共通デフォルト値
+
+        configMap[ParamType.front] = 1f; //発見時の硬直
     }
 }

@@ -1,37 +1,18 @@
-using UnityEngine;
-
 public class SlashConfig : BaseSkillConfig
 {
-    float priColRange = 1.5f;
-    float priCd = 2f;
-
-    float priFront = 0.4f;
-    float priMain = 0.4f;
-    float priBack = 0.4f;
-
-    float priAcFrame = 0.2f;
-    float priAcWeight = 20;
-
-    int priActNum = 2;
-
-    int priPd = 50;
-    int priFd = 0;
-
-    protected override void SetupInitial()
+    protected override void InitParamMap()
     {
-        colRange = priColRange;
-        cd = priCd;
+        base.InitParamMap(); // 共通デフォルト値
 
-        front = priFront;
-        main = priMain;
-        back = priBack;
-
-        acFrame = priAcFrame;
-        acWeight = priAcWeight;
-
-        actNum = priActNum;
-
-        pd = priPd;
-        fd = priFd;
+        configMap[ParamType.colRange] = 1.5f;
+        configMap[ParamType.cd] = 2f;
+        configMap[ParamType.front] = 0.4f;
+        configMap[ParamType.main] = 0.4f;
+        configMap[ParamType.back] = 0.4f;
+        configMap[ParamType.acFrame] = 0.2f;
+        configMap[ParamType.acWeight] = 20f;
+        configMap[ParamType.actNum] = 2;
+        configMap[ParamType.pd] = 50;
+        configMap[ParamType.fd] = 0;
     }
 }

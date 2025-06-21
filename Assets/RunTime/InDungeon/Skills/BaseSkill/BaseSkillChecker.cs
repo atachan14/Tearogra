@@ -61,7 +61,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
         skillParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();
-        maxCd = skillParams.cd;
+        maxCd = skillParams.Get(ParamType.cd);
     }
 
     protected virtual void WriteCanAlertState()
@@ -78,7 +78,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     }
     protected virtual void SetupColRange()
     {
-        col.radius = skillParams.colRange;
+        col.radius = skillParams.Get(ParamType.colRange);
     }
 
     public virtual bool Check()

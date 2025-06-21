@@ -3,8 +3,10 @@ using UnityEngine;
 public class CombatConfig : BaseSkillConfig
 {
 
-    public override void ExportParams(SkillParams skillParams)
+    protected override void InitParamMap()
     {
-        skillParams.spValue = 0.2f;
+        base.InitParamMap(); // 共通デフォルト値
+
+        configMap[ParamType.bonusValue] = 0.2f;
     }
 }

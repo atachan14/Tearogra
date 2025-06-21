@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class RunConfig : BaseSkillConfig
 {
-    public override void ExportParams(SkillParams skillParams)
+    protected override void InitParamMap()
     {
-        skillParams.spValue = 0f;
+        base.InitParamMap(); // 共通デフォルト値
+
+        configMap[ParamType.bonusValue] = 0f;
     }
+
 }
