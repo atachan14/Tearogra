@@ -8,7 +8,7 @@ public class FreeChecker : BaseSkillChecker
         CanAlert.Add(AlertType.Free);
     }
 
-    protected override void SetupColRange()
+    protected override void SetupCol()
     {
 
     }

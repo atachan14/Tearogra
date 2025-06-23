@@ -6,7 +6,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 {
     protected Unit unit;
     protected UnitState state;
-    protected UnitParams unitParams;
+    protected BaseUnitParams unitParams;
 
     protected SkillParams skillParams;
     protected CircleCollider2D col;
@@ -18,7 +18,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     public List<ISkillActor> NeedSkill { get; set; } = new();
     public List<ISkillActor> CanSkill { get; set; } = new();
 
-    public List<GameObject> TargetList { get; set; } = new();
+    public HashSet<GameObject> TargetSet { get; set; } = new();
     public GameObject TargetUnit { get; set; }
     public Vector3 TargetPos { get; set; }
 
@@ -50,18 +50,19 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
         WriteCanAlertState();
         WriteNeedState();
         WriteCanState();
-        SetupColRange();
+        SetupCol();
+        maxCd = skillParams.Get(ParamType.cd);
     }
 
     protected virtual void CacheReferences()
     {
         unit = GetComponentInParent<Unit>();
         state = GetComponentInParent<UnitState>();
-        unitParams = GetComponentInParent<UnitParams>();
+        unitParams = GetComponentInParent<BaseUnitParams>();
 
         skillParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();
-        maxCd = skillParams.Get(ParamType.cd);
+        
     }
 
     protected virtual void WriteCanAlertState()
@@ -76,7 +77,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     {
 
     }
-    protected virtual void SetupColRange()
+    protected virtual void SetupCol()
     {
         col.radius = skillParams.Get(ParamType.colRange);
     }
@@ -109,12 +110,12 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        TargetList.Add(other.gameObject);
+        TargetSet.Add(other.gameObject); // HashSet‚¾‚©‚çd•¡‹C‚É‚µ‚È‚­‚ÄOK
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        TargetList.Remove(other.gameObject);
+        TargetSet.Remove(other.gameObject);
     }
 
 
@@ -140,7 +141,10 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     public GameObject PickClosest()
     {
-        TargetUnit = TargetList.OrderBy(u => Vector3.Distance(unit.transform.position, u.transform.position)).FirstOrDefault();
+        TargetUnit = TargetSet
+            .OrderBy(u => Vector3.Distance(unit.transform.position, u.transform.position))
+            .FirstOrDefault();
+
         return TargetUnit;
     }
 

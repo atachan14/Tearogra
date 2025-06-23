@@ -10,13 +10,14 @@ public class BaseItem : MonoBehaviour
     protected virtual void Start()
     {
         CashReference();
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
     protected virtual void CashReference()
     {
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<CircleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        rb.linearDamping = 50;
     }
 
     public virtual void OnDrop()
@@ -24,5 +25,9 @@ public class BaseItem : MonoBehaviour
         sr.enabled = true;
         col.enabled = true;
         transform.SetParent(transform.root.GetComponentInChildren<DropItem>().transform);
+
+        Vector2 randomDir = Random.insideUnitCircle.normalized;
+        float force = Random.Range(1f, 3f); // êîéöÇÕí≤êÆÇµÇƒ
+        rb.AddForce(randomDir * force, ForceMode2D.Impulse);
     }
 }

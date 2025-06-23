@@ -11,9 +11,9 @@ public class LostChecker : BaseSkillChecker
 
     public override bool CheckTarget()
     {
-        return TargetList.Count == 0;
+        return TargetSet.Count == 0;
     }
-    protected override void SetupColRange()
+    protected override void SetupCol()
     {
         col.radius = unitParams.searchRange + 1;          //‘{õ”ÍˆÍ‚ÍunitParams‚ÅFound,Combat,Run‹¤—LB
 

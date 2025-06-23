@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class SkillParams : MonoBehaviour
 {
-    private BaseSkillConfig config;
-    private BaseSkillChecker checker;
     private Dictionary<ParamType, float> paramMap = new();
 
-    protected void Start()
+    private BaseSkillConfig config;
+    private BaseSkillChecker checker;
+
+    void Start()
     {
         CacheReferences();
         SetupSkill();
@@ -21,16 +22,17 @@ public class SkillParams : MonoBehaviour
 
     void SetupSkill()
     {
-        ImportConfig();          // ← これ1本で完結する構造に
+        config.Apply(paramMap); // ← dictに直接初期値を書き込み！
+        ImportMod(); //
         checker.SetupChecker();
     }
 
-    public void ImportConfig()
+    public void ImportMod()
     {
-        var map = config.GetConfigMap();
-        foreach (var kv in map)
+        var mods = GetComponentsInChildren<BaseMod>();
+        foreach (var mod in mods)
         {
-            paramMap[kv.Key] = kv.Value;
+            mod.Apply(paramMap);
         }
     }
 

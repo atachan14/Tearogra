@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 4073077076920189030}
   - component: {fileID: 3564250829897930488}
   - component: {fileID: 1078031108221047698}
+  - component: {fileID: 3751735097509366701}
   - component: {fileID: 1680684777609012296}
   - component: {fileID: 4884800635958718271}
   m_Layer: 3
@@ -564,22 +565,26 @@ MonoBehaviour:
   mn: 1000
   size: 1
   weight: 1
-  pb: 100
-  fb: 100
-  ib: 100
-  vb: 100
-  pr: 10
-  fr: 10
-  ir: 10
-  vr: 10
-  pPen: 0
-  fPen: 0
-  iPen: 0
-  vPen: 0
-  pPenPer: 0
-  fPenPer: 0
-  iPenPer: 0
-  vPenPer: 0
+  attackBonus:
+    Physic: 0
+    Fire: 0
+    Ice: 0
+    Volt: 0
+  resist:
+    Physic: 0
+    Fire: 0
+    Ice: 0
+    Volt: 0
+  penFlat:
+    Physic: 0
+    Fire: 0
+    Ice: 0
+    Volt: 0
+  penPercent:
+    Physic: 0
+    Fire: 0
+    Ice: 0
+    Volt: 0
   ms: 2
   searchRange: 7
 --- !u!114 &1078031108221047698
@@ -595,6 +600,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgDisplay: {fileID: 8421070495229743673, guid: b72d51bee1ccf794f9b70b1feab028ea, type: 3}
+--- !u!114 &3751735097509366701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5579024196753280558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b13a76e5eba4d8459bb0132aded02c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1680684777609012296
 Rigidbody2D:
   serializedVersion: 5

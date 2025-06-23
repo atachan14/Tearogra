@@ -19,7 +19,7 @@ public class WalkChecker : BaseSkillChecker
         return state.NextPos != unit.transform.position;
     }
 
-    protected override void SetupColRange()
+    protected override void SetupCol()
     {
         //col‚È‚µ‚Í‰½‚à‘‚©‚È‚¢B
     }

@@ -7,7 +7,7 @@ public class SlashChecker : BaseSkillChecker
         return PickClosest();
     }
 
-    protected override void SetupColRange()
+    protected override void SetupCol()
     {
         col.radius = skillParams.Get(ParamType.colRange);
         Debug.Log($"SlashChecker skillParams.colRange:{skillParams.Get(ParamType.colRange)}");

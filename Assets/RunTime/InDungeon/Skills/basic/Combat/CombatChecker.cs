@@ -9,7 +9,7 @@ public class CombatChecker : BaseSkillChecker
     {
         return PickClosest();
     }
-    protected override void SetupColRange()
+    protected override void SetupCol()
     {
         col.radius = unitParams.searchRange + 1f;          //‘{õ”ÍˆÍ‚ÍunitParams‚ÅFound,Combat,Run‹¤—LB
 

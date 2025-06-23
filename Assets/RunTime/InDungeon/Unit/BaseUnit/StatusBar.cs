@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class StatusBar : MonoBehaviour
 {
-    UnitParams unitParams;
+    BaseUnitParams unitParams;
     [SerializeField] private Transform hpValue;
     [SerializeField] private Transform mnValue;
 
@@ -19,7 +19,7 @@ public class StatusBar : MonoBehaviour
 
     void Start()
     {
-        unitParams = GetComponentInParent<UnitParams>();
+        unitParams = GetComponentInParent<BaseUnitParams>();
     }
 
 

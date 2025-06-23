@@ -1,19 +1,22 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseSkillAC : MonoBehaviour
 {
     public SkillParams sParams;
-    public UnitParams uParams;
-    
+    public BaseUnitParams uParams;
+
     public float acWeight;
+    public Dictionary<Element, AttackElementData> attackTable;
 
     private void Start()
     {
         sParams = GetComponentInParent<SkillParams>();
-        uParams = GetComponentInParent<UnitParams>();
+        uParams = GetComponentInParent<BaseUnitParams>();
 
         SetupCollider();
+        SetupParams();
         StartCoroutine(AutoDestroyAfterFrame());
     }
 
@@ -51,28 +54,62 @@ public class BaseSkillAC : MonoBehaviour
         }
     }
 
+    void SetupParams()
+    {
+        attackTable = new Dictionary<Element, AttackElementData>();
+
+        foreach (Element element in System.Enum.GetValues(typeof(Element)))
+        {
+            float baseDmg = sParams.Get(element switch
+            {
+                Element.Physic => ParamType.pd,
+                Element.Fire => ParamType.fd,
+                Element.Ice => ParamType.id,
+                Element.Volt => ParamType.vd,
+                _ => ParamType.pd // fallback（来ないけど）
+            });
+
+            int damage = (int)(baseDmg * uParams.attackBonus[element] / 100f);
+
+            int pen = (int)sParams.Get(element switch
+            {
+                Element.Physic => ParamType.pPen,
+                Element.Fire => ParamType.fPen,
+                Element.Ice => ParamType.iPen,
+                Element.Volt => ParamType.vPen,
+                _ => ParamType.pPen
+            }) + uParams.penFlat[element];
+
+            int penPer = (int)sParams.Get(element switch
+            {
+                Element.Physic => ParamType.pPenPer,
+                Element.Fire => ParamType.fPenPer,
+                Element.Ice => ParamType.iPenPer,
+                Element.Volt => ParamType.vPenPer,
+                _ => ParamType.pPenPer
+            }) + uParams.penPercent[element];
+
+            attackTable[element] = new AttackElementData(damage, pen, penPer);
+        }
+    }
+
     private IEnumerator AutoDestroyAfterFrame()
     {
         yield return new WaitForSeconds(sParams.Get(ParamType.acFrame));
         Destroy(gameObject);
     }
+}
 
+public struct AttackElementData
+{
+    public int damage;
+    public int Pen;
+    public int percentPen;
 
-    // 🔽 Damage計算系（都度使うとき用）
-    public int GetOutPd() => (int)(sParams.Get(ParamType.pd) * uParams.pb / 100f);
-    public int GetOutFd() => (int)(sParams.Get(ParamType.fd) * uParams.fb / 100f);
-    public int GetOutId() => (int)(sParams.Get(ParamType.id) * uParams.ib / 100f);
-    public int GetOutVd() => (int)(sParams.Get(ParamType.vd) * uParams.vb / 100f);
-
-    // 🔽 Penetration値
-    public int GetOutPPen() => (int)sParams.Get(ParamType.pPen) + uParams.pPen;
-    public int GetOutFPen() => (int)sParams.Get(ParamType.fPen) + uParams.fPen;
-    public int GetOutIPen() => (int)sParams.Get(ParamType.iPen) + uParams.iPen;
-    public int GetOutVPen() => (int)sParams.Get(ParamType.vPen) + uParams.vPen;
-
-    // 🔽 Penetrationパーセンテージ
-    public int GetOutPPenPer() => (int)sParams.Get(ParamType.pPenPer) + uParams.pPenPer;
-    public int GetOutFPenPer() => (int)sParams.Get(ParamType.fPenPer) + uParams.fPenPer;
-    public int GetOutIPenPer() => (int)sParams.Get(ParamType.iPenPer) + uParams.iPenPer;
-    public int GetOutVPenPer() => (int)sParams.Get(ParamType.vPenPer) + uParams.vPenPer;
+    public AttackElementData(int dmg, int pen, int penPer)
+    {
+        damage = dmg;
+        Pen = pen;
+        percentPen = penPer;
+    }
 }
