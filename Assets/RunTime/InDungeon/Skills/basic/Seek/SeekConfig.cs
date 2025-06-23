@@ -6,6 +6,6 @@ public class SeekConfig : BaseSkillConfig
     {
         base.InitParamMap(); // 共通デフォルト値
 
-        configMap[ParamType.bonusValue] = 0.2f;
+        configMap[ParamType.msBonus] = 0.2f;
     }
 }

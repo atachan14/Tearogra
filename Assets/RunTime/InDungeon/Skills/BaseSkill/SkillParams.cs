@@ -8,11 +8,7 @@ public class SkillParams : MonoBehaviour
     private BaseSkillConfig config;
     private BaseSkillChecker checker;
 
-    void Start()
-    {
-        CacheReferences();
-        SetupSkill();
-    }
+   
 
     void CacheReferences()
     {
@@ -20,11 +16,12 @@ public class SkillParams : MonoBehaviour
         checker = GetComponent<BaseSkillChecker>();
     }
 
-    void SetupSkill()
+    public void SetupSkill()
     {
+        CacheReferences();
         config.Apply(paramMap); // © dict‚É’¼Ú‰Šú’l‚ğ‘‚«‚İI
         ImportMod(); //
-        checker.SetupChecker();
+        checker.FloorSetup();
     }
 
     public void ImportMod()

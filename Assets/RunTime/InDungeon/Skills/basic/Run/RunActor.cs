@@ -15,10 +15,10 @@ public class RunActor : BaseSkillActor
         //NextPos–³Œø‰»B
         state.NextPos = unit.transform.position;
         //TargetPos‚Ì”½‘Î‚ğŒü‚­
-        TargetPos = checker.TargetUnit.transform.position;
+        TargetPos = checker.TargetObj.transform.position;
         UpdateAngleAwayTarget(TargetPos);
 
         //Œü‚¢‚Ä‚é•ûŒü‚ÉˆÚ“®B
-        unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.Get(ParamType.bonusValue)) * Time.deltaTime;
+        unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.Get(ParamType.msBonus)) * Time.deltaTime;
     }
 }

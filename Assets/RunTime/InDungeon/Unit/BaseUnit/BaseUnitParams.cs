@@ -71,9 +71,16 @@ public class BaseUnitParams : MonoBehaviour
     [SerializeField] public ElementTable<int> penPercent = new();
 
     public int ms = 2;
-    public int searchRange = 7;
+    public int lightRange = 7;
 
     void Awake()
+    {
+        SetupParams();
+
+       
+    }
+
+    protected void SetupParams()
     {
         // Šm’è“I‚È‰Šú’l‚ğ‚±‚±‚Å‚Ô‚¿‚Ş
         attackBonus = new ElementTable<int>(100);
@@ -81,6 +88,10 @@ public class BaseUnitParams : MonoBehaviour
         penFlat = new ElementTable<int>(0);
         penPercent = new ElementTable<int>(0);
 
+    }
+
+    private void Start()
+    {
         state = GetComponent<UnitState>();
         statusBar = GetComponentInChildren<StatusBar>();
     }

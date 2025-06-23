@@ -4,11 +4,11 @@ public class WalkChecker : BaseSkillChecker
 {
     
     
-    protected override void WriteCanAlertState()
+    protected override void SetupCanAlertState()
     {
         CanAlert.Add(AlertType.Free);
     }
-    protected override void WriteCanState()
+    protected override void SetupCanState()
     {
         AddCanState<FreeActor>();
         AddCanState<WalkActor>();

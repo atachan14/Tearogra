@@ -3,7 +3,7 @@ using UnityEngine;
 public class FreeChecker : BaseSkillChecker
 {
     
-    protected override void WriteCanAlertState()
+    protected override void SetupCanAlertState()
     {
         CanAlert.Add(AlertType.Free);
     }

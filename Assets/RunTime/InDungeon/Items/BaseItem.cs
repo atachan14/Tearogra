@@ -30,4 +30,11 @@ public class BaseItem : MonoBehaviour
         float force = Random.Range(1f, 3f); // ”š‚Í’²®‚µ‚Ä
         rb.AddForce(randomDir * force, ForceMode2D.Impulse);
     }
+
+    public virtual void Collect(Unit u)
+    {
+        sr.enabled = false;
+        col.enabled = false;
+        transform.SetParent(u.GetComponentInChildren<UnitItem>().transform);
+    }
 }

@@ -6,7 +6,7 @@ public class RunConfig : BaseSkillConfig
     {
         base.InitParamMap(); // 共通デフォルト値
 
-        configMap[ParamType.bonusValue] = 0f;
+        configMap[ParamType.msBonus] = 0f;
     }
 
 }

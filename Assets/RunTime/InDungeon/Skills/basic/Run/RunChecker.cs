@@ -4,7 +4,7 @@ using static UnityEngine.ParticleSystem;
 public class RunChecker : BaseSkillChecker
 {
 
-    protected override void WriteCanAlertState()
+    protected override void SetupCanAlertState()
     {
         CanAlert.Add(AlertType.Run);
     }
@@ -14,7 +14,7 @@ public class RunChecker : BaseSkillChecker
     }
     protected override void SetupCol()
     {
-        col.radius = unitParams.searchRange + 1f;          //捜索範囲はunitParamsでFound,Combat,Run共有。
+        col.radius = uParams.lightRange + 1f;          //捜索範囲はunitParamsでFound,Combat,Run共有。
 
     }
 }

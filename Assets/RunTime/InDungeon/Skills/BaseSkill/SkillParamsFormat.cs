@@ -25,7 +25,7 @@ public enum ParamType
     actNum,
     buff,
     debuff,
-    bonusValue,
+    msBonus,
 
     // Damage
     pd,

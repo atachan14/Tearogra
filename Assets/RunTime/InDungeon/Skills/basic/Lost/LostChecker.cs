@@ -3,7 +3,7 @@ using static UnityEngine.ParticleSystem;
 
 public class LostChecker : BaseSkillChecker
 {
-    protected override void WriteCanAlertState()
+    protected override void SetupCanAlertState()
     {
         CanAlert.Add(AlertType.Combat);
         CanAlert.Add(AlertType.Run);
@@ -15,7 +15,7 @@ public class LostChecker : BaseSkillChecker
     }
     protected override void SetupCol()
     {
-        col.radius = unitParams.searchRange + 1;          //捜索範囲はunitParamsでFound,Combat,Run共有。
+        col.radius = uParams.lightRange + 1;          //捜索範囲はunitParamsでFound,Combat,Run共有。
 
     }
 }

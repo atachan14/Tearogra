@@ -13,7 +13,7 @@ public class FoundActor : BaseSkillActor
 
     protected override IEnumerator FrontFrame()
     {
-        UpdateAngleToTarget(checker.TargetUnit.transform.position);
+        UpdateAngleToTarget(checker.TargetObj.transform.position);
         alertEffect.ExecuteFound(skillParams.Get(ParamType.front));
         yield return new WaitForSeconds(skillParams.Get(ParamType.front));
 

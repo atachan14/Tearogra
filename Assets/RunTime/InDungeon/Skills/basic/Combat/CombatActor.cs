@@ -12,7 +12,7 @@ public class CombatActor : BaseSkillActor
     protected override void ActSync()
     {
         //TargetPos‚ðŒü‚­
-        TargetPos = checker.TargetUnit.transform.position;
+        TargetPos = checker.TargetObj.transform.position;
         UpdateAngleToTarget(TargetPos);
 
         //‹——£‚ª‹ß‚·‚¬‚½‚ç‘Ò‹@
@@ -23,7 +23,7 @@ public class CombatActor : BaseSkillActor
         }
         else
         {
-            unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.Get(ParamType.bonusValue)) * Time.deltaTime;
+            unit.transform.position += AngleToDir() * unitParams.ms * (1 + skillParams.Get(ParamType.msBonus)) * Time.deltaTime;
         }
 
     }

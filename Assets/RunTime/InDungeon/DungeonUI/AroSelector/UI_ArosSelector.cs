@@ -29,6 +29,7 @@ public class UI_ArosSelector : MonoBehaviour
         {
             aroSelectorFields[i].SetAro(aroList[i]);
             aroList[i].GetComponent<BaseUnitParams>().AroId = i;
+            aroList[i].SetupUnit();
         }
     }
 

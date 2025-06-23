@@ -6,9 +6,9 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 {
     protected Unit unit;
     protected UnitState state;
-    protected BaseUnitParams unitParams;
+    protected BaseUnitParams uParams;
 
-    protected SkillParams skillParams;
+    protected SkillParams sParams;
     protected CircleCollider2D col;
 
     [SerializeField] protected float cd;
@@ -19,9 +19,11 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     public List<ISkillActor> CanSkill { get; set; } = new();
 
     public HashSet<GameObject> TargetSet { get; set; } = new();
-    public GameObject TargetUnit { get; set; }
+    public GameObject TargetObj { get; set; }
     public Vector3 TargetPos { get; set; }
 
+
+   
     public void CdStart()
     {
         cd = maxCd;
@@ -44,42 +46,48 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     }
 
 
-    public void SetupChecker()
+    public void FloorSetup()
     {
         CacheReferences();
-        WriteCanAlertState();
-        WriteNeedState();
-        WriteCanState();
+        SetupCanAlertState();
+        SetupNeedState();
+        SetupCanState();
         SetupCol();
-        maxCd = skillParams.Get(ParamType.cd);
+        SetupLayer();
+        maxCd = sParams.Get(ParamType.cd);
     }
 
     protected virtual void CacheReferences()
     {
         unit = GetComponentInParent<Unit>();
         state = GetComponentInParent<UnitState>();
-        unitParams = GetComponentInParent<BaseUnitParams>();
+        uParams = GetComponentInParent<BaseUnitParams>();
 
-        skillParams = GetComponent<SkillParams>();
+        sParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();
         
     }
 
-    protected virtual void WriteCanAlertState()
+    protected virtual void SetupCanAlertState()
     {
         CanAlert.Add(AlertType.Combat);
     }
-    protected virtual void WriteNeedState()
+    protected virtual void SetupNeedState()
     {
 
     }
-    protected virtual void WriteCanState()
+    protected virtual void SetupCanState()
     {
 
     }
     protected virtual void SetupCol()
     {
-        col.radius = skillParams.Get(ParamType.colRange);
+        col.radius = sParams.Get(ParamType.colRange);
+    }
+
+    protected virtual void SetupLayer()
+    {
+        gameObject.layer = GetSearchToEnemy();
     }
 
     public virtual bool Check()
@@ -138,14 +146,26 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
             Debug.LogWarning($"[BaseSkillChecker] {typeof(T).Name} not found on unit");
     }
 
+    protected int GetSearchToEnemy()
+    {
+        if(uParams.AroId!= null)
+        {
+            return LayerMask.NameToLayer("SearchToGra");
+        }
+        else
+        {
+            return LayerMask.NameToLayer("SearchToAro");
+        }
+    }
+
 
     public GameObject PickClosest()
     {
-        TargetUnit = TargetSet
+        TargetObj = TargetSet
             .OrderBy(u => Vector3.Distance(unit.transform.position, u.transform.position))
             .FirstOrDefault();
 
-        return TargetUnit;
+        return TargetObj;
     }
 
 }

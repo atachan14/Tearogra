@@ -38,8 +38,12 @@ public class UnitState : MonoBehaviour
 
     void Start()
     {
-        NextPos = transform.position;
+        FloorSetup();
+    }
 
+    public void FloorSetup()
+    {
+        NextPos = transform.position;
     }
 
     void Update()

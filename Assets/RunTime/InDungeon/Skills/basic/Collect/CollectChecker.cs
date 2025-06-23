@@ -1,26 +1,29 @@
 using UnityEngine;
 
-public class FoundChecker : BaseSkillChecker
+public class CollectChecker : BaseSkillChecker
 {
     protected override void SetupCanAlertState()
     {
         CanAlert.Add(AlertType.Free);
     }
+
     protected override void SetupCanState()
     {
         AddCanState<FreeActor>();
         AddCanState<WalkActor>();
+        AddCanState<SeekActor>();
     }
-
+    protected override void SetupLayer()
+    {
+        gameObject.layer = LayerMask.NameToLayer("SearchToItem");
+    }
     public override bool CheckTarget()
     {
-        return state.Search_Ignore && PickClosest();
+        return PickClosest();
     }
     protected override void SetupCol()
     {
-        col.radius = uParams.lightRange;          //‘{õ”ÍˆÍ‚ÍunitParams‚ÅFound,Combat,Run‹¤—LB
+        col.radius = sParams.Get(ParamType.colRange); ;   
 
     }
-
-
 }

@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void SetupUnit()
     {
-        
-    }
+        GetComponent<UnitState>().FloorSetup();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var skillParams = GetComponentsInChildren<SkillParams>();
+        foreach (var skill in skillParams)
+        {
+            skill.SetupSkill();
+        }
     }
 }
