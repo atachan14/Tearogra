@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UI_AroCommonds : MonoBehaviour
 {
+    public static UI_AroCommonds Instance;
+
     [SerializeField] Toggle Seek_Ignore;
     [SerializeField] Toggle chase_run;
     [SerializeField] Toggle search_ignore;
@@ -13,6 +15,12 @@ public class UI_AroCommonds : MonoBehaviour
     Camera MainCam;
    
     bool isSettingAro = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
 
     private void Start()
     {

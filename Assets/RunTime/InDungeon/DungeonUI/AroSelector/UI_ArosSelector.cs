@@ -9,7 +9,6 @@ public class UI_ArosSelector : MonoBehaviour
     public static UI_ArosSelector Instance;
     Unit[] aroList;
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
-    [SerializeField] UI_AroCommonds aroCommonds;
     Toggle lastOnToggle;
 
     public List<Unit> SelectedAros = new();
@@ -59,13 +58,13 @@ public class UI_ArosSelector : MonoBehaviour
     {
         SelectedAros.Add(aro);
         HighlightSelected();
-        aroCommonds.UpdateSelectedAro(aro);
+        UI_AroCommonds.Instance.UpdateSelectedAro(aro);
     }
     public void RemoveSelectedAro(Unit aro)
     {
         SelectedAros.Remove(aro);
         HighlightSelected();
-        aroCommonds.UpdateSelectedAro(aro);
+        UI_AroCommonds.Instance.UpdateSelectedAro(aro);
     }
 
    

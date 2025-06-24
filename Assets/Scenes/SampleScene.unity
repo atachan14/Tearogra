@@ -1254,11 +1254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b67fcc9bf2dae4c97f50c754c2c2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk_free: {fileID: 1710246229}
+  Seek_Ignore: {fileID: 1710246229}
   chase_run: {fileID: 231905589}
   search_ignore: {fileID: 1476000891}
   follow_fixed: {fileID: 1307006803}
-  arosSelector: {fileID: 1464346227}
 --- !u!4 &643108778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8165604715688346197, guid: 76d57602cbdf80e47a928710286d0bea, type: 3}
@@ -1834,9 +1833,9 @@ RectTransform:
   - {fileID: 237728435}
   - {fileID: 639024358}
   - {fileID: 1464346224}
+  - {fileID: 1865317379}
   - {fileID: 1696156549}
   - {fileID: 1424740894}
-  - {fileID: 1865317379}
   m_Father: {fileID: 1263134488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2812,7 +2811,6 @@ MonoBehaviour:
   - {fileID: 1379667895}
   - {fileID: 1897300376}
   - {fileID: 784743677}
-  aroCommonds: {fileID: 639024361}
   SelectedAros: []
 --- !u!114 &1464346228
 MonoBehaviour:
@@ -4116,6 +4114,10 @@ PrefabInstance:
       propertyPath: onColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 105152330421595694, guid: 43f023f32e06f354bb399ee5b04c4005, type: 3}
+      propertyPath: defaultSprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 105152330421595694, guid: 43f023f32e06f354bb399ee5b04c4005, type: 3}
       propertyPath: ui_AroCommonds
       value: 
