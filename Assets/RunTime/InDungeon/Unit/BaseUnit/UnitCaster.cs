@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class UnitCaster : MonoBehaviour
 {
-    BaseUnitParams unitParams;
+    UnitParams unitParams;
 
     void Awake()
     {
-        unitParams = GetComponent<BaseUnitParams>();
+        unitParams = GetComponent<UnitParams>();
     }
 
     public void OnDamageDealt(Element e, int dmg)

@@ -50,8 +50,9 @@ public class ElementTable<T>
     }
 }
 
-public class BaseUnitParams : MonoBehaviour
+public class UnitParams : MonoBehaviour
 {
+    Unit unit;
     UnitState state;
     StatusBar statusBar;
 
@@ -92,6 +93,7 @@ public class BaseUnitParams : MonoBehaviour
 
     private void Start()
     {
+        unit = GetComponent<Unit>();
         state = GetComponent<UnitState>();
         statusBar = GetComponentInChildren<StatusBar>();
     }
@@ -103,54 +105,8 @@ public class BaseUnitParams : MonoBehaviour
         hp -= dmg;
         statusBar.HpRefresh();
 
-        if (hp <= 0) Death();
+        if (hp <= 0) unit.Death();
     }
 
-    void Death()
-    {
-        hp = 0;
-
-        var cols = GetComponentsInChildren<Collider2D>();
-        foreach (var col in cols)
-        {
-            col.enabled = false;
-        }
-
-        var items = GetComponentsInChildren<BaseItem>();
-        foreach (var item in items)
-        {
-            item.OnDrop();
-        }
-
-        state.NextPos = transform.position;
-
-       
-        StartCoroutine(DeathAnimation());
-    }
-
-    IEnumerator DeathAnimation()
-    {
-        var body = GetComponentInChildren<BodySprite>();
-        if (body != null)
-            body.transform.rotation = Quaternion.Euler(0, 0, 90);
-
-        SpriteRenderer[] renderers = body.GetComponentsInChildren<SpriteRenderer>();
-        float duration = 1.5f;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            float alpha = Mathf.Lerp(1f, 0f, time / duration);
-            foreach (var rend in renderers)
-            {
-                Color c = rend.color;
-                rend.color = new Color(c.r, c.g, c.b, alpha);
-            }
-
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        Destroy(gameObject);
-    }
+   
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseSkillAC : MonoBehaviour
 {
     public SkillParams sParams;
-    public BaseUnitParams uParams;
+    public UnitParams uParams;
 
     public float acWeight;
     public Dictionary<Element, AttackElementData> attackTable;
@@ -13,7 +13,7 @@ public class BaseSkillAC : MonoBehaviour
     private void Start()
     {
         sParams = GetComponentInParent<SkillParams>();
-        uParams = GetComponentInParent<BaseUnitParams>();
+        uParams = GetComponentInParent<UnitParams>();
 
         SetupCollider();
         SetupParams();

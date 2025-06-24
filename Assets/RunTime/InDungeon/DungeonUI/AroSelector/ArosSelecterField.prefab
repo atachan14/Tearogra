@@ -58,13 +58,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1faea42a7bf3f86439d5726906e461db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ui_ArosSelector: {fileID: 0}
   outLine: {fileID: 2136901984530259609}
   InnerShadow: {fileID: 3093997740097702019}
   aroIconImage: {fileID: 7239333542338073798}
   toggle: {fileID: 6497905884711492263}
   onColor: {r: 0, g: 0, b: 0, a: 1}
   offColor: {r: 1, g: 1, b: 1, a: 1}
-  ui_AroCommonds: {fileID: 0}
+  defaultSprite: {fileID: 0}
 --- !u!1 &1288991011434346559
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288991011434346559}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 

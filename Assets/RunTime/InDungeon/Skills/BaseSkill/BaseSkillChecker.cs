@@ -6,7 +6,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 {
     protected Unit unit;
     protected UnitState state;
-    protected BaseUnitParams uParams;
+    protected UnitParams uParams;
 
     protected SkillParams sParams;
     protected CircleCollider2D col;
@@ -61,7 +61,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
     {
         unit = GetComponentInParent<Unit>();
         state = GetComponentInParent<UnitState>();
-        uParams = GetComponentInParent<BaseUnitParams>();
+        uParams = GetComponentInParent<UnitParams>();
 
         sParams = GetComponent<SkillParams>();
         col = GetComponent<CircleCollider2D>();

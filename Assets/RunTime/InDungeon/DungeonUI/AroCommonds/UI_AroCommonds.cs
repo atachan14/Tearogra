@@ -5,22 +5,18 @@ using UnityEngine.UI;
 
 public class UI_AroCommonds : MonoBehaviour
 {
-    [SerializeField] Toggle walk_free;
+    [SerializeField] Toggle Seek_Ignore;
     [SerializeField] Toggle chase_run;
     [SerializeField] Toggle search_ignore;
     [SerializeField] Toggle follow_fixed;
 
     Camera MainCam;
-
-    [SerializeField] UI_ArosSelector arosSelector;
-    Unit lastSelectedAro;
-    UnitState selectedState;
-
+   
     bool isSettingAro = false;
 
     private void Start()
     {
-        walk_free.onValueChanged.AddListener(_ => AssingAroCommond());
+        Seek_Ignore.onValueChanged.AddListener(_ => AssingAroCommond());
         chase_run.onValueChanged.AddListener(_ => AssingAroCommond());
         search_ignore.onValueChanged.AddListener(_ => AssingAroCommond());
         follow_fixed.onValueChanged.AddListener(_ => AssingAroCommond());
@@ -29,47 +25,51 @@ public class UI_AroCommonds : MonoBehaviour
 
     private void Update()
     {
-        FollowCam();
+        if (follow_fixed.isOn && UI_ArosSelector.Instance.LastSelectedAro)
+        {
+            FollowCam();
+        }
     }
 
     void FollowCam()
     {
-        if (follow_fixed.isOn && lastSelectedAro)
-        {
-            Vector3 pos = lastSelectedAro.transform.position;
-            pos.z = MainCam.transform.position.z;
-            MainCam.transform.position = pos;
-        }
+
+        Vector3 pos = UI_ArosSelector.Instance.LastSelectedAro.transform.position;
+        pos.z = MainCam.transform.position.z;
+        MainCam.transform.position = pos;
+
     }
 
 
 
     public void UpdateSelectedAro(Unit aro)
     {
-        lastSelectedAro = aro;
-        selectedState = lastSelectedAro.GetComponentInChildren<UnitState>();
+        UnitState selectedState = UI_ArosSelector.Instance.LastSelectedAro.GetComponentInChildren<UnitState>();
 
         isSettingAro = true;
 
-        walk_free.isOn = selectedState.Walk_Free;
+        Seek_Ignore.isOn = selectedState.Seek_Ignore;
         chase_run.isOn = selectedState.Combat_Run;
         search_ignore.isOn = selectedState.Search_Ignore;
 
         isSettingAro = false;
     }
 
+
+
+
     public void AssingAroCommond()
     {
         if (isSettingAro) return;
 
-        foreach (Unit aro in arosSelector.SelectedAros)
+        foreach (Unit aro in UI_ArosSelector.Instance.SelectedAros)
         {
             UnitState state = aro.GetComponent<UnitState>();
-            state.Walk_Free = walk_free.isOn;
+            state.Seek_Ignore = Seek_Ignore.isOn;
             state.Combat_Run = chase_run.isOn;
             state.Search_Ignore = search_ignore.isOn;
-            Debug.Log($"{aro},{walk_free.isOn},{chase_run.isOn},{search_ignore.isOn},{follow_fixed.isOn}");
+            Debug.Log($"{aro},{Seek_Ignore.isOn},{chase_run.isOn},{search_ignore.isOn},{follow_fixed.isOn}");
         }
-        
+
     }
 }

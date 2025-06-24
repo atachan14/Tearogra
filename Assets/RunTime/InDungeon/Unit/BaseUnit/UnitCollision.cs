@@ -5,7 +5,7 @@
 public class UnitCollision : MonoBehaviour
 {
     Rigidbody2D rb;
-    BaseUnitParams unitParams;
+    UnitParams unitParams;
 
     [SerializeField] GameObject dmgDisplay;
 
@@ -17,7 +17,7 @@ public class UnitCollision : MonoBehaviour
 
     void CashRefarence()
     {
-        unitParams = GetComponentInParent<BaseUnitParams>();
+        unitParams = GetComponentInParent<UnitParams>();
         rb = GetComponent<Rigidbody2D>();
     }
 

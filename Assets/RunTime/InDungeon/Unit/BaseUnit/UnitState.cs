@@ -32,7 +32,7 @@ public class UnitState : MonoBehaviour
     public Vector3 NextPos { get; set; }
     public float Angle { get; set; } = -91;
 
-    public bool Walk_Free { get; set; } = true;
+    public bool Seek_Ignore { get; set; } = true;
     public bool Combat_Run { get; set; } = true;
     public bool Search_Ignore { get; set; } = true;
 

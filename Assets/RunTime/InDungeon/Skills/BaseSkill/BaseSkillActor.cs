@@ -29,7 +29,7 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
 {
     protected Unit unit;
     protected UnitState state;
-    protected BaseUnitParams unitParams;
+    protected UnitParams unitParams;
 
     protected SkillParams skillParams;
     protected BaseSkillChecker checker;
@@ -44,7 +44,7 @@ public class BaseSkillActor : MonoBehaviour, ISkillActor
     protected virtual void CacheReferences()
     {
         unit = GetComponentInParent<Unit>();
-        unitParams = GetComponentInParent<BaseUnitParams>();
+        unitParams = GetComponentInParent<UnitParams>();
         state = GetComponentInParent<UnitState>();
 
         skillParams = GetComponent<SkillParams>();

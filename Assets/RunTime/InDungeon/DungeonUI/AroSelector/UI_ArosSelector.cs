@@ -1,14 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_ArosSelector : MonoBehaviour
 {
+    public static UI_ArosSelector Instance;
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
     [SerializeField] UI_AroCommonds aroCommonds;
     Toggle lastOnToggle;
+
     public List<Unit> SelectedAros = new();
+    public Unit LastSelectedAro => SelectedAros.LastOrDefault();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -28,7 +37,7 @@ public class UI_ArosSelector : MonoBehaviour
         for (int i = 0; i < aroList.Length; i++)
         {
             aroSelectorFields[i].SetAro(aroList[i]);
-            aroList[i].GetComponent<BaseUnitParams>().AroId = i;
+            aroList[i].GetComponent<UnitParams>().AroId = i;
             aroList[i].SetupUnit();
         }
     }
@@ -36,13 +45,48 @@ public class UI_ArosSelector : MonoBehaviour
     public void AddSelectedAro(Unit aro)
     {
         SelectedAros.Add(aro);
+        HighlightSelected();
         aroCommonds.UpdateSelectedAro(aro);
     }
     public void RemoveSelectedAro(Unit aro)
     {
         SelectedAros.Remove(aro);
+        HighlightSelected();
+        aroCommonds.UpdateSelectedAro(aro);
     }
 
+   
 
+    public void HighlightSelected()
+    {
+        // 全部リセット
+        foreach (var field in aroSelectorFields)
+        {
+            field.UpdateOutLineColor();
+        }
 
+        // 最後のやつだけ色変える
+        if (LastSelectedAro != null)
+        {
+            var field = aroSelectorFields.FirstOrDefault(f => f.Aro == LastSelectedAro);
+            if (field != null)
+            {
+                field.UpdateLastAro();
+            }
+        }
+    }
+
+    public void ReportDeath(int aroId)
+    {
+        var deadUnit = aroSelectorFields[aroId].Aro;
+
+        // UI に死んだ処理をさせる
+        aroSelectorFields[aroId].ReceiveDeath();
+
+        // 選択中リストから除外
+        if (SelectedAros.Contains(deadUnit))
+        {
+            RemoveSelectedAro(deadUnit);
+        }
+    }
 }
