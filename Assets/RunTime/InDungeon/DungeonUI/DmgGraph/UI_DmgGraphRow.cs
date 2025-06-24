@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class UI_DmgGraphRow : MonoBehaviour
 {
+    [SerializeField] Image icon;
+    [SerializeField] Sprite defaultIcon;
+
     [Header("バー（それぞれ横幅をscale.xで調整）")]
     [SerializeField] Image physicBar;
     [SerializeField] Image fireBar;
@@ -41,6 +44,14 @@ public class UI_DmgGraphRow : MonoBehaviour
         }
 
         baseBarLength = dmgBar.rect.width;
+    }
+
+
+
+
+    public void SetIcon(Unit aro)
+    {
+        icon.sprite = aro.GetComponentInChildren<IconSprites>().AroSelectorIcon;
     }
 
     public void AddDamage(Element element, int dmg)
@@ -109,5 +120,8 @@ public class UI_DmgGraphRow : MonoBehaviour
         return sb.ToString();
     }
 
-
+    public void ReceiveDeath()
+    {
+        icon.sprite = defaultIcon;
+    }
 }

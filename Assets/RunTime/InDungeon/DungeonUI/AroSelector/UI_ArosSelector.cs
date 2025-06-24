@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UI_ArosSelector : MonoBehaviour
 {
     public static UI_ArosSelector Instance;
+    Unit[] aroList;
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
     [SerializeField] UI_AroCommonds aroCommonds;
     Toggle lastOnToggle;
@@ -21,12 +22,20 @@ public class UI_ArosSelector : MonoBehaviour
 
     void Start()
     {
-        SetupArosSelecterFields();
+        UpdateAroList();
     }
+
+    public void UpdateAroList()
+    {
+        SetupArosSelecterFields();
+        SetupDmgGraph();
+    }
+
+   
 
     void SetupArosSelecterFields()
     {
-        var aroList = PlayerData.Instance.GetComponentsInChildren<Unit>();
+        aroList = PlayerData.Instance.GetComponentsInChildren<Unit>();
 
         if (aroList.Length > aroSelectorFields.Length)
         {
@@ -40,6 +49,10 @@ public class UI_ArosSelector : MonoBehaviour
             aroList[i].GetComponent<UnitParams>().AroId = i;
             aroList[i].SetupUnit();
         }
+    }
+    void SetupDmgGraph()
+    {
+        UI_DmgGraph.Instance.SetupIcon(aroList);
     }
 
     public void AddSelectedAro(Unit aro)
@@ -82,6 +95,7 @@ public class UI_ArosSelector : MonoBehaviour
 
         // UI に死んだ処理をさせる
         aroSelectorFields[aroId].ReceiveDeath();
+        UI_DmgGraph.Instance.rows[aroId].ReceiveDeath();
 
         // 選択中リストから除外
         if (SelectedAros.Contains(deadUnit))

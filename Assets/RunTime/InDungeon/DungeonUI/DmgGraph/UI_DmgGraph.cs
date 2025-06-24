@@ -3,19 +3,27 @@ using UnityEngine;
 public class UI_DmgGraph : MonoBehaviour
 {
     public static UI_DmgGraph Instance;
-    UI_DmgGraphRow[] rows;
+    public UI_DmgGraphRow[] rows { get; set; }
     int maxTotalDamage = 1; // Å‰‚Í1‚ÅŠ„‚èZƒ[ƒœ‚¯‘Îô
 
     private void Awake()
     {
         Instance = this;
+        rows = GetComponentsInChildren<UI_DmgGraphRow>();
     }
 
     void Start()
     {
-        rows = GetComponentsInChildren<UI_DmgGraphRow>();
+        
     }
 
+    public void SetupIcon(Unit[] aroList)
+    {
+        for (int i = 0; i < aroList.Length; i++)
+        {
+            rows[i].SetIcon(aroList[i]);
+        }
+    }
     public void ReportDamage(int aroId, Element e, int dmg)
     {
         // 1. ŠY“–s‚Éƒ_ƒ[ƒW’Ç‰Á
