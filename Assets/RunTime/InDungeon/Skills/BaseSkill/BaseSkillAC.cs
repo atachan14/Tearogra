@@ -6,6 +6,7 @@ public class BaseSkillAC : MonoBehaviour
 {
     public SkillParams sParams;
     public UnitParams uParams;
+    public BaseACResponse acResponse;
 
     public float acWeight;
     public Dictionary<Element, AttackElementData> attackTable;
@@ -14,6 +15,7 @@ public class BaseSkillAC : MonoBehaviour
     {
         sParams = GetComponentInParent<SkillParams>();
         uParams = GetComponentInParent<UnitParams>();
+        acResponse = GetComponentInParent<BaseACResponse>();
 
         SetupCollider();
         SetupParams();

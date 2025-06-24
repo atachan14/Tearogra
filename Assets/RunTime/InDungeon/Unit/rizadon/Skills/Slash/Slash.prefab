@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 5299570648610871410}
   - component: {fileID: 8683577021758964284}
   - component: {fileID: 6077429934824797741}
+  - component: {fileID: 2718084372571820506}
   m_Layer: 0
   m_Name: Slash
   m_TagString: Untagged
@@ -240,34 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72d9da6b08f48f4982ce56d6cf25870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  front: 0
-  main: 0
-  back: 0
-  colRange: 0
-  cd: 0
-  targetCount: 0
-  acFrame: 0
-  acLength: 0
-  acWidth: 0
-  acSpeed: 0
-  acWeight: 0
-  pd: 0
-  fd: 0
-  id: 0
-  ed: 0
-  pPen: 0
-  fPen: 0
-  iPen: 0
-  ePen: 0
-  pPenPer: 0
-  fPenPer: 0
-  iPenPer: 0
-  ePenPer: 0
-  actNum: 0
-  buff: 0
-  debuff: 0
-  spValue: 0
-  canMods: 
 --- !u!58 &8909695869706022493
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -344,31 +317,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da580f955a274945b2c2aaf2a27366f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  front: 0
-  main: 0
-  back: 0
-  colRange: 0
-  cd: 0
-  targetCount: 0
-  acFrame: 0
-  acLength: 1
-  acWidth: 1
-  acSpeed: 1
-  acWeight: 1
-  pd: 50
-  fd: 0
-  id: 0
-  ed: 0
-  pPen: 0
-  fPen: 0
-  iPen: 0
-  ePen: 0
-  pPenPer: 0
-  fPenPer: 0
-  iPenPer: 0
-  ePenPer: 0
-  actNum: 0
-  buff: 0
-  debuff: 0
-  spValue: 0
-  canMods: 
+--- !u!114 &2718084372571820506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192644637821820965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311977731bec34a4e9e20328462fa09c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
