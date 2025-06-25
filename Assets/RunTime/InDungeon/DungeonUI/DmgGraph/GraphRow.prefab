@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 15}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &400181089766563367
 CanvasRenderer:
@@ -360,7 +360,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 15}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6858513298806836847
 CanvasRenderer:
@@ -627,7 +627,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 15}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7821287917697869329
 CanvasRenderer:
@@ -913,6 +913,10 @@ MonoBehaviour:
   fireBar: {fileID: 548586544948321260}
   iceBar: {fileID: 6163274849732196509}
   voltBar: {fileID: 4142460479361945430}
+  physicBarToFriend: {fileID: 8066662432484634487}
+  fireBarToFriend: {fileID: 4582975003180227016}
+  iceBarToFriend: {fileID: 7476668202581985153}
+  voltBarToFriend: {fileID: 2073357274844834056}
   totalText: {fileID: 0}
   elementText: {fileID: 1361741163290006698}
   dmgBar: {fileID: 7529630220470147112}
@@ -951,7 +955,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: 15}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2463131996189139232
 CanvasRenderer:

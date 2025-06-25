@@ -4,8 +4,9 @@
 
 public class UnitCollision : MonoBehaviour
 {
+    Unit unit;
     Rigidbody2D rb;
-    UnitParams unitParams;
+    UnitParams uParams;
 
     [SerializeField] GameObject dmgDisplay;
 
@@ -17,7 +18,8 @@ public class UnitCollision : MonoBehaviour
 
     void CashRefarence()
     {
-        unitParams = GetComponentInParent<UnitParams>();
+        unit = GetComponent<Unit>();
+        uParams = GetComponent<UnitParams>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -25,7 +27,7 @@ public class UnitCollision : MonoBehaviour
     {
         if (rb == null) return;
 
-        rb.mass = unitParams.weight;
+        rb.mass = uParams.weight;
         rb.linearDamping = 10;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -46,7 +48,7 @@ public class UnitCollision : MonoBehaviour
             Element element = kvp.Key;
             AttackElementData data = kvp.Value;
 
-            int resist = unitParams.GetResist(element);
+            int resist = uParams.GetResist(element);
             TryTakeDamage(ac, element, data, resist); // ac を追加
         }
     }
@@ -58,10 +60,10 @@ public class UnitCollision : MonoBehaviour
         int dmg = CalcTakeDamage(data.damage, data.Pen, data.percentPen, resist);
 
         ShowDmg(element, dmg);
-        unitParams.ReportDmg(dmg);
+        uParams.ReportDmg(dmg);
 
         // casterがUIに送るべきかの判定も含めて、責任を移譲
-        ac.acResponse.OnDamageDealt(element, dmg);
+        ac.acResponse.OnDamageDealt(element, dmg,uParams.AroId);
     }
 
 

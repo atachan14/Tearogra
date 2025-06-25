@@ -1,38 +1,55 @@
-
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System.Collections.Generic;
+
+public enum DamageViewType { Dealer, Tank }
+
 public class UI_DmgGraph : MonoBehaviour
 {
     public static UI_DmgGraph Instance;
     public UI_DmgGraphRow[] rows { get; set; }
-    int maxTotalDamage = 1; // 最初は1で割り算ゼロ除け対策
+    int maxTotalDamage = 1;
+    public DamageViewType viewType = DamageViewType.Dealer;
+
+    [Header("タブ切替ボタン（任意）")]
+    [SerializeField] private Button dealerTabButton;
+    [SerializeField] private Button tankTabButton;
+
+    public Dictionary<(int? dealer, int? tank), Dictionary<Element, int>> damageLog = new();
 
     private void Awake()
     {
         Instance = this;
         rows = GetComponentsInChildren<UI_DmgGraphRow>();
-    }
 
-    void Start()
-    {
-        
+        if (dealerTabButton != null)
+            dealerTabButton.onClick.AddListener(() => SetViewType(DamageViewType.Dealer));
+
+        if (tankTabButton != null)
+            tankTabButton.onClick.AddListener(() => SetViewType(DamageViewType.Tank));
     }
 
     public void SetupIcon(Unit[] aroList)
     {
         for (int i = 0; i < aroList.Length; i++)
-        {
             rows[i].SetIcon(aroList[i]);
-        }
     }
-    public void ReportDamage(int aroId, Element e, int dmg)
+
+    public void ReportDamage(Element e, int? dealerId, int? tankId, int dmg)
     {
-        // 1. 該当行にダメージ追加
-        rows[aroId].AddDamage(e, dmg);
+        var key = (dealerId, tankId);
+        if (!damageLog.TryGetValue(key, out var elementDict))
+        {
+            elementDict = new();
+            damageLog[key] = elementDict;
+        }
 
-        // 2. 最大ダメージ再計算
+        if (!elementDict.ContainsKey(e))
+            elementDict[e] = 0;
+        elementDict[e] += dmg;
+
         RecalculateMaxTotalDamage();
-
-        // 3. 全Row更新（グラフ比率反映）
         RefreshAllRows();
     }
 
@@ -40,16 +57,21 @@ public class UI_DmgGraph : MonoBehaviour
     {
         maxTotalDamage = 1;
         foreach (var row in rows)
-        {
-            maxTotalDamage = Mathf.Max(maxTotalDamage, row.GetTotalDamage());
-        }
+            maxTotalDamage = Mathf.Max(maxTotalDamage, row.GetTotalDamage(damageLog, viewType));
     }
 
     void RefreshAllRows()
     {
-        foreach (var row in rows)
+        for (int i = 0; i < rows.Length; i++)
         {
-            row.UpdateBarLengthRatio(maxTotalDamage);
+            rows[i].UpdateBarLengthRatio(maxTotalDamage, damageLog, i, viewType);
         }
+    }
+
+    public void SetViewType(DamageViewType type)
+    {
+        viewType = type;
+        RecalculateMaxTotalDamage();
+        RefreshAllRows();
     }
 }

@@ -11,17 +11,16 @@ public class BaseACResponse : MonoBehaviour
         sParams = GetComponent<SkillParams>();
     }
 
-    public void OnDamageDealt(Element e, int dmg)
+    public void OnDamageDealt(Element e, int dmg,int? tankId)
     {
-        TrySendToUIDamageGraph(e, dmg);
+        TrySendToUIDamageGraph(e, dmg, tankId);
         TryOmniVamp(e, dmg); // ‰¼
     }
 
-    void TrySendToUIDamageGraph(Element e, int dmg)
+    void TrySendToUIDamageGraph(Element e, int dmg, int? tankId)
     {
-        if (uParams.AroId == null) return;
 
-        UI_DmgGraph.Instance.ReportDamage(uParams.AroId.Value, e, dmg);
+        UI_DmgGraph.Instance.ReportDamage(e,uParams.AroId, tankId, dmg);
     }
 
     void TryOmniVamp(Element e, int dmg)
