@@ -58,6 +58,7 @@ public class UI_DmgGraphRow : MonoBehaviour
 
     public void SetIcon(Unit aro)
     {
+        if (!aro) return;
         icon.sprite = aro.GetComponentInChildren<IconSprites>().AroSelectorIcon;
     }
 

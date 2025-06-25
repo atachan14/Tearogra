@@ -18,4 +18,10 @@ public class PlayerData : MonoBehaviour
             Destroy(gameObject); // 2ŒÂ–Ú‚ÍÁ‚·
         }
     }
+
+    public void FloorSetup()
+    {
+        AroManager.Instance.FloorSetup();
+        UI_ArosSelector.Instance.FloorSetup();
+    }
 }

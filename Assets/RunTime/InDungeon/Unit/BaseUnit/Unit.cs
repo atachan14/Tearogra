@@ -7,10 +7,7 @@ public class Unit : MonoBehaviour
     UnitParams uParams;
     UnitState state;
 
-    private void Start()
-    {
-        CasheReference();
-    }
+    public int? AroId { get; set; } = null;
 
     void CasheReference()
     {
@@ -18,9 +15,13 @@ public class Unit : MonoBehaviour
         state = GetComponent<UnitState>();
     }
 
-    public void SetupUnit()
+    public void FloorSetup(int? aroId)
     {
-        GetComponent<UnitState>().FloorSetup();
+        CasheReference();
+
+        AroId = aroId;
+
+        state.FloorSetup();
 
         var skillParams = GetComponentsInChildren<SkillParams>();
         foreach (var skill in skillParams)
@@ -109,9 +110,9 @@ public class Unit : MonoBehaviour
             yield return null;
         }
 
-        if(uParams.AroId != null)
+        if(AroId != null)
         {
-            UI_ArosSelector.Instance.ReportDeath((int)uParams.AroId);
+            UI_ArosSelector.Instance.ReportDeath((int)AroId);
         }
 
         Destroy(gameObject);

@@ -56,7 +56,7 @@ public class UnitParams : MonoBehaviour
     UnitState state;
     StatusBar statusBar;
 
-    public int? AroId { get; set; } = null;
+    
 
     public int maxhp = 1000;
     public int hp = 1000;
@@ -77,8 +77,6 @@ public class UnitParams : MonoBehaviour
     void Awake()
     {
         SetupParams();
-
-       
     }
 
     protected void SetupParams()
@@ -88,7 +86,6 @@ public class UnitParams : MonoBehaviour
         resist = new ElementTable<int>(10);
         penFlat = new ElementTable<int>(0);
         penPercent = new ElementTable<int>(0);
-
     }
 
     private void Start()

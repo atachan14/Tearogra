@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UI_ArosSelector : MonoBehaviour
 {
     public static UI_ArosSelector Instance;
-    public Unit[] aroList;
+    
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
     Toggle lastOnToggle;
 
@@ -19,12 +19,8 @@ public class UI_ArosSelector : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
-    {
-        UpdateAroList();
-    }
 
-    public void UpdateAroList()
+    public void FloorSetup()
     {
         SetupArosSelecterFields();
         SetupDmgGraph();
@@ -34,24 +30,15 @@ public class UI_ArosSelector : MonoBehaviour
 
     void SetupArosSelecterFields()
     {
-        aroList = PlayerData.Instance.GetComponentsInChildren<Unit>();
-
-        if (aroList.Length > aroSelectorFields.Length)
+        for (int i = 0; i < AroManager.Instance.AroDict.Count(); i++)
         {
-            Debug.LogError("aroSelecterFields‚æ‚èPlayerData“à‚ÌCreature”‚ª‘½‚¢‚Å‚·B");
-            return;
-        }
-
-        for (int i = 0; i < aroList.Length; i++)
-        {
-            aroSelectorFields[i].SetAro(aroList[i]);
-            aroList[i].GetComponent<UnitParams>().AroId = i;
-            aroList[i].SetupUnit();
+            aroSelectorFields[i].SetAro(AroManager.Instance.AroDict[i]);
+           
         }
     }
     void SetupDmgGraph()
     {
-        UI_DmgGraph.Instance.SetupIcon(aroList);
+        UI_DmgGraph.Instance.SetupIcon();
     }
 
     public void AddSelectedAro(Unit aro)

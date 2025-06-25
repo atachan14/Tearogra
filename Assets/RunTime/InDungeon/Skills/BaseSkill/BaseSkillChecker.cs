@@ -148,7 +148,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
 
     protected int GetSearchToEnemy()
     {
-        if(uParams.AroId!= null)
+        if(unit.AroId!= null)
         {
             return LayerMask.NameToLayer("SearchToGra");
         }

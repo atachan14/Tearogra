@@ -63,7 +63,7 @@ public class UnitCollision : MonoBehaviour
         uParams.ReportDmg(dmg);
 
         // casterがUIに送るべきかの判定も含めて、責任を移譲
-        ac.acResponse.OnDamageDealt(element, dmg,uParams.AroId);
+        ac.acResponse.OnDamageDealt(element, dmg,unit.AroId);
     }
 
 

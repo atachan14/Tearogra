@@ -15,7 +15,6 @@ public class Hole : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isClosed) return;
-        Debug.Log("hole in one");
 
         Unit unit = collision.GetComponent<Unit>();
         unit.GoHole(transform);  // Aro側の処理呼び出し（アニメとかワープとか）

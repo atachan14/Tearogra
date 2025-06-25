@@ -30,10 +30,10 @@ public class UI_DmgGraph : MonoBehaviour
             tankTabButton.onClick.AddListener(() => SetViewType(DamageViewType.Tank));
     }
 
-    public void SetupIcon(Unit[] aroList)
+    public void SetupIcon()
     {
-        for (int i = 0; i < aroList.Length; i++)
-            rows[i].SetIcon(aroList[i]);
+        for (int i = 0; i < 5; i++)
+            rows[i].SetIcon(AroManager.Instance.AroDict[i]);
     }
 
     public void ReportDamage(Element e, int? dealerId, int? tankId, int dmg)

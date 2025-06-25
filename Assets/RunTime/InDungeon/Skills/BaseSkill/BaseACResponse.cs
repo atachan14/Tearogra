@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class BaseACResponse : MonoBehaviour
 {
-    UnitParams uParams;
+    Unit unit;
     SkillParams sParams;
 
     void Awake()
     {
-        uParams = GetComponentInParent<UnitParams>();
+        unit = GetComponentInParent<Unit>();
         sParams = GetComponent<SkillParams>();
     }
 
@@ -20,7 +20,7 @@ public class BaseACResponse : MonoBehaviour
     void TrySendToUIDamageGraph(Element e, int dmg, int? tankId)
     {
 
-        UI_DmgGraph.Instance.ReportDamage(e,uParams.AroId, tankId, dmg);
+        UI_DmgGraph.Instance.ReportDamage(e,unit.AroId, tankId, dmg);
     }
 
     void TryOmniVamp(Element e, int dmg)

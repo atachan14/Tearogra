@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HoleManager : MonoBehaviour
 {
-    private List<Hole> holes = new(); // Inspector‚ÅŽ©“®Žæ“¾‚Å‚à‚¢‚¢
+    private List<Hole> holes = new(); 
     private Hole selectedHole;
     private HashSet<Unit> enteredAros = new();
 
@@ -28,7 +28,7 @@ public class HoleManager : MonoBehaviour
             if (!enteredAros.Contains(aro))
                 enteredAros.Add(aro);
 
-            if (enteredAros.Count >= UI_ArosSelector.Instance.aroList.Length)
+            if (enteredAros.Count >= AroManager.Instance.aroCount)
             {
                 FloorClear(); // ‘Sˆõ“ü‚Á‚½
             }

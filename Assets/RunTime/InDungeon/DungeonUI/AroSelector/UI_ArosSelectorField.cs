@@ -62,6 +62,8 @@ public class UI_ArosSelectorField : MonoBehaviour
 
     public void SetAro(Unit aro)
     {
+        if (!aro) return;
+
         Aro = aro;
         aroIconImage.sprite = Aro.GetComponentInChildren<IconSprites>().AroSelectorIcon;
 

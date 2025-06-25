@@ -4,6 +4,11 @@ public class GraHeart : MonoBehaviour
 {
    void Start()
     {
-        GetComponentInParent<Unit>().SetupUnit();
+        FloorSetup();
+    }
+
+   public void FloorSetup()
+    {
+        GetComponentInParent<Unit>().FloorSetup(null);
     }
 }

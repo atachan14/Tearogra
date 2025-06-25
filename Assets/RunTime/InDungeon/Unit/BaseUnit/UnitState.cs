@@ -36,10 +36,7 @@ public class UnitState : MonoBehaviour
     public bool Combat_Run { get; set; } = true;
     public bool Search_Ignore { get; set; } = true;
 
-    void Start()
-    {
-        FloorSetup();
-    }
+
 
     public void FloorSetup()
     {
