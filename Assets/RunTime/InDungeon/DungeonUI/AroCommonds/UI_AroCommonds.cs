@@ -52,6 +52,7 @@ public class UI_AroCommonds : MonoBehaviour
 
     public void UpdateSelectedAro(Unit aro)
     {
+        if (UI_ArosSelector.Instance.LastSelectedAro == null) return;
         UnitState selectedState = UI_ArosSelector.Instance.LastSelectedAro.GetComponentInChildren<UnitState>();
 
         isSettingAro = true;

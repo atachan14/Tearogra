@@ -29,6 +29,35 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public void GoHole(Transform hole)
+    {
+        StartCoroutine(HoleJumpAnimation(hole.position));
+    }
+
+    IEnumerator HoleJumpAnimation(Vector3 targetPos)
+    {
+        float duration = 0.5f;
+        float elapsed = 0f;
+        Vector3 startPos = transform.position;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+
+            // 緩急つけたジャンプ（ちょい浮かせ）
+            float heightOffset = Mathf.Sin(t * Mathf.PI) * 0.5f;
+            Vector3 pos = Vector3.Lerp(startPos, targetPos, t) + Vector3.up * heightOffset;
+
+            transform.position = pos;
+            yield return null;
+        }
+
+        // 完了後は消える（または非表示）
+        gameObject.SetActive(false);
+    }
+
+
     public void Death()
     {
         uParams.hp = 0;

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UI_ArosSelector : MonoBehaviour
 {
     public static UI_ArosSelector Instance;
-    Unit[] aroList;
+    public Unit[] aroList;
     public UI_ArosSelectorField[] aroSelectorFields = new UI_ArosSelectorField[5];
     Toggle lastOnToggle;
 
