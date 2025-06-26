@@ -22,6 +22,6 @@ public class PlayerData : MonoBehaviour
     public void FloorSetup()
     {
         AroManager.Instance.FloorSetup();
-        UI_ArosSelector.Instance.FloorSetup();
+        Dui_Manager.Instance.FloorSetup();
     }
 }

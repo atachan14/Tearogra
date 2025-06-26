@@ -20,13 +20,16 @@ public class SeekActor : BaseSkillActor
         state.SkillState.Clear();
         state.SkillState.Add(this);
     }
-    protected override void Exit()
-    {
-
-    }
-
+  
     protected override void ActSync()
     {
+        if(!checker.TargetObj)
+        {
+            Debug.Log("seek");
+            state.SkillState.Remove(this);
+            Debug.Log($"seek SkillState:{state.SkillState}");
+            return;
+        };
         //TargetPos‚ðŒü‚­
         TargetPos = checker.TargetObj.transform.position;
         UpdateAngleToTarget(TargetPos);

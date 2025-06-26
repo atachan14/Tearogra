@@ -1,17 +1,11 @@
 using UnityEngine;
 
-public class FloorManager : MonoBehaviour
+public class BreakPos : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        FloorSetup();
-    }
-
-    void FloorSetup()
-    {
-        PlayerData.Instance.FloorSetup();
-        BreakArea.instance.gameObject.SetActive(false);
+        
     }
 
     // Update is called once per frame

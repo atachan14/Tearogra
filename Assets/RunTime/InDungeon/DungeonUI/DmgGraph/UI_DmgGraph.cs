@@ -30,6 +30,11 @@ public class UI_DmgGraph : MonoBehaviour
             tankTabButton.onClick.AddListener(() => SetViewType(DamageViewType.Tank));
     }
 
+    public void FloorSetup()
+    {
+        SetupIcon();
+    }
+
     public void SetupIcon()
     {
         for (int i = 0; i < 5; i++)

@@ -11,7 +11,7 @@ public class CombatChecker : BaseSkillChecker
     }
     protected override void SetupCol()
     {
-        col.radius = uParams.lightRange + 1f;          //捜索範囲はunitParamsでFound,Combat,Run共有。
+        col.radius = uParams.SearchRange + 1f;          //捜索範囲はunitParamsでFound,Combat,Run共有。
 
     }
 

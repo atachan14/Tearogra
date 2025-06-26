@@ -24,7 +24,7 @@ public class BaseItem : MonoBehaviour
     {
         sr.enabled = true;
         col.enabled = true;
-        transform.SetParent(transform.root.GetComponentInChildren<DropItem>().transform);
+        transform.SetParent(DropItem.Instance.transform);
 
         Vector2 randomDir = Random.insideUnitCircle.normalized;
         float force = Random.Range(1f, 3f); // ”š‚Í’²®‚µ‚Ä

@@ -17,8 +17,12 @@ public class UnitState : MonoBehaviour
     public List<ISkillActor> SkillState { get; set; } = new();
     [SerializeField] private List<MonoBehaviour> debug_SkillState = new();
 
-    public bool IsAlert { get; set; }
+    public Vector3 NextPos { get; set; }
+    public float Angle { get; set; } = -91;
 
+
+
+    public bool IsAlert { get; set; }
     public AlertType AlertState
     {
         get
@@ -27,11 +31,6 @@ public class UnitState : MonoBehaviour
             return Combat_Run ? AlertType.Combat : AlertType.Run;
         }
     }
-
-
-    public Vector3 NextPos { get; set; }
-    public float Angle { get; set; } = -91;
-
     public bool Seek_Ignore { get; set; } = true;
     public bool Combat_Run { get; set; } = true;
     public bool Search_Ignore { get; set; } = true;

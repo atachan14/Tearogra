@@ -55,7 +55,20 @@ public class Unit : MonoBehaviour
         }
 
         // Š®—¹Œã‚ÍÁ‚¦‚éi‚Ü‚½‚Í”ñ•\¦j
+        AfterGoHole();
+    }
+
+    void AfterGoHole()
+    {
+        if (AroId == null) return;
+
+        GetComponentInChildren<AroLight>().gameObject.SetActive(false);
+        transform.position = BreakPosManager.Instance.posList[(int)AroId].transform.position;
+        state.NextPos = transform.position;
         gameObject.SetActive(false);
+
+        HoleManager.Instance.EnteredHole(this);
+
     }
 
 

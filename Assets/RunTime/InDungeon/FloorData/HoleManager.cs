@@ -1,10 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class HoleManager : MonoBehaviour
 {
-    private List<Hole> holes = new(); 
+    public static HoleManager Instance;
+
+    private List<Hole> holes = new();
     private Hole selectedHole;
     private HashSet<Unit> enteredAros = new();
 
@@ -12,7 +14,13 @@ public class HoleManager : MonoBehaviour
 
     public bool IsLocked => selectedHole != null;
 
-    public void NotifyHoleEntered(Hole hole, Unit aro)
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public void ShutterHole(Hole hole)
     {
         if (selectedHole == null)
         {
@@ -22,22 +30,81 @@ public class HoleManager : MonoBehaviour
                 if (h != hole) h.Close(); // Close()は自作関数
             }
         }
+    }
 
-        if (hole == selectedHole)
+    public void EnteredHole(Unit aro)
+    {
+
+        if (!enteredAros.Contains(aro))
+            enteredAros.Add(aro);
+
+        if (enteredAros.Count >= AroManager.Instance.aroCount)
         {
-            if (!enteredAros.Contains(aro))
-                enteredAros.Add(aro);
-
-            if (enteredAros.Count >= AroManager.Instance.aroCount)
-            {
-                FloorClear(); // 全員入った
-            }
+            StartCoroutine(FloorClear()); // 全員入った
         }
     }
 
-    void FloorClear()
+    IEnumerator FloorClear()
     {
+
+        Dui_Manager.Instance.gameObject.SetActive(false);
+
+        RevealAros();
+        
+        BreakArea.instance.gameObject.SetActive(true);
+
+        yield return StartCoroutine(FadeOutFloorData());
+
+
+        
         Debug.Log("Floor Cleared!");
-        // UI演出などに繋ぐ
+    }
+
+    void RevealAros()
+    {
+        foreach (var aro in AroManager.Instance.AroDict.Values)
+        {
+            if (aro != null)
+                aro.gameObject.SetActive(true);
+        }
+    }
+
+    IEnumerator FadeOutFloorData()
+    {
+        FloorManager fm = GetComponentInParent<FloorManager>();
+        SpriteRenderer[] srsList = fm.GetComponentsInChildren<SpriteRenderer>();
+
+        float duration = 3.0f; // フェードアウト時間
+        float time = 0f;
+
+        // 初期カラーを保持
+        Dictionary<SpriteRenderer, Color> originalColors = new();
+        foreach (var sr in srsList)
+            originalColors[sr] = sr.color;
+
+        while (time < duration)
+        {
+            float t = time / duration;
+            foreach (var sr in srsList)
+            {
+                if (sr == null) continue;
+                Color c = originalColors[sr];
+                c.a = Mathf.Lerp(1f, 0f, t);
+                sr.color = c;
+            }
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // 最終的に完全に透明にしてから破壊
+        foreach (var sr in srsList)
+        {
+            if (sr == null) continue;
+            Color c = originalColors[sr];
+            c.a = 0f;
+            sr.color = c;
+        }
+
+        Destroy(fm.gameObject);
     }
 }

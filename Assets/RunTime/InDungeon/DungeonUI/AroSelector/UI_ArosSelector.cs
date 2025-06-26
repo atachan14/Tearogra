@@ -23,7 +23,6 @@ public class UI_ArosSelector : MonoBehaviour
     public void FloorSetup()
     {
         SetupArosSelecterFields();
-        SetupDmgGraph();
     }
 
    
@@ -36,10 +35,7 @@ public class UI_ArosSelector : MonoBehaviour
            
         }
     }
-    void SetupDmgGraph()
-    {
-        UI_DmgGraph.Instance.SetupIcon();
-    }
+  
 
     public void AddSelectedAro(Unit aro)
     {

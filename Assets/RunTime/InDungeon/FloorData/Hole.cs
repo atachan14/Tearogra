@@ -17,14 +17,15 @@ public class Hole : MonoBehaviour
         if (isClosed) return;
 
         Unit unit = collision.GetComponent<Unit>();
-        unit.GoHole(transform);  // Aro側の処理呼び出し（アニメとかワープとか）
 
-        AroHeart aroHeart = unit.GetComponentInChildren<AroHeart>();
-        if (aroHeart != null)
-        {
-            manager.NotifyHoleEntered(this, unit);
-           
-        }
+        //aroだったら他のHoleを閉じる処理をManagerに依頼
+        if (unit.AroId != null) { manager.ShutterHole(this); }
+
+        // Aro側の処理呼び出し（アニメとかワープとか）
+        unit.GoHole(transform);  
+
+
+
     }
 
     public void Close()

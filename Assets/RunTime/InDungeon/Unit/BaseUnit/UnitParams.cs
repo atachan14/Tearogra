@@ -62,6 +62,7 @@ public class UnitParams : MonoBehaviour
     public int hp = 1000;
     public int maxmn = 1000;
     public int mn = 1000;
+   
 
     public float size = 1;
     public float weight = 1f;
@@ -72,7 +73,7 @@ public class UnitParams : MonoBehaviour
     [SerializeField] public ElementTable<int> penPercent = new();
 
     public int ms = 2;
-    public int lightRange = 7;
+    public int SearchRange = 7;
 
     void Awake()
     {

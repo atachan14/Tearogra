@@ -18,7 +18,7 @@ public class AroManager : MonoBehaviour
 
     public void FloorSetup()
     {
-        //AroDict¶¬‚ÆAroIdİ’è
+        //AroDict‚ÆAroId‚Ì‰Šú‰»
         var aroList = GetComponentsInChildren<Unit>();
         for (int i = 0; i < 5; i++)
         {
