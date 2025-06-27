@@ -22,6 +22,11 @@ public class SeekChecker : BaseSkillChecker
     {
         return PickClosest();
     }
+
+    public override bool CheckOther()
+    {
+        return state.Seek_Ignore;
+    }
     protected override void SetupCol()
     {
         col.radius = uParams.SearchRange;          //‘{õ”ÍˆÍ‚ÍunitParams‚ÅFound,Combat,Run‹¤—LB

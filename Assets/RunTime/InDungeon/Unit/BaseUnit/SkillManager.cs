@@ -5,24 +5,24 @@ using UnityEngine;
 public class SkillManager
     : MonoBehaviour
 {
-    List<IRequireChecker> checkerList;
+    List<BaseSkillChecker> checkerList;
     [SerializeField] GameObject basicSkills;
     [SerializeField] GameObject advancedSkills;
     private void Start()
     {
-        var advList = advancedSkills.GetComponentsInChildren<IRequireChecker>();
-        var basicList = basicSkills.GetComponentsInChildren<IRequireChecker>();
+        var advList = advancedSkills.GetComponentsInChildren<BaseSkillChecker>();
+        var basicList = basicSkills.GetComponentsInChildren<BaseSkillChecker>();
         checkerList = advList.Concat(basicList).ToList(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (IRequireChecker checker in checkerList)
+        foreach (BaseSkillChecker checker in checkerList)
         {
             if (checker.Check())
             {
-                ISkillActor actor = ((MonoBehaviour)checker).GetComponent<ISkillActor>();
+                BaseSkillActor actor = checker.GetComponent<BaseSkillActor>();
                 actor.Execute();
                 return;
             }

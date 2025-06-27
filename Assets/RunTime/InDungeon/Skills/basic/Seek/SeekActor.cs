@@ -25,9 +25,7 @@ public class SeekActor : BaseSkillActor
     {
         if(!checker.TargetObj)
         {
-            Debug.Log("seek");
             state.SkillState.Remove(this);
-            Debug.Log($"seek SkillState:{state.SkillState}");
             return;
         };
         //TargetPos‚ðŒü‚­

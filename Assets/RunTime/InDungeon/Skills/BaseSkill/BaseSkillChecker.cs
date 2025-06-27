@@ -97,6 +97,7 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
         if (!CheckNeedState()) return false;
         if (!CheckCanState()) return false;
         if (!CheckTarget()) return false;
+        if (!CheckOther()) return false;
         return true;
     }
     public virtual bool CheckAlertState()
@@ -112,6 +113,11 @@ public class BaseSkillChecker : MonoBehaviour, IRequireChecker
         return state.SkillState.All(skill => NeedSkill.Contains(skill) || CanSkill.Contains(skill));
     }
     public virtual bool CheckTarget()
+    {
+        return true;
+    }
+
+    public virtual bool CheckOther()
     {
         return true;
     }

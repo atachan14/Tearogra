@@ -18,7 +18,7 @@ public class CollectActor : BaseSkillActor
 
         while (elapsed < duration)
         {
-            if(TargetItem == null) yield break;
+            if(!TargetItem) yield break;
 
             float cycleTime = elapsed % cycleDuration;
 
