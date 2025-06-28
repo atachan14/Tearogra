@@ -11,6 +11,7 @@ public class FloorManager : MonoBehaviour
     {
         BuildFloor();
         PlayerData.Instance.FloorSetup();
+        StartPosManager.Instance.AroSetPosition();
     }
 
     void BuildFloor()

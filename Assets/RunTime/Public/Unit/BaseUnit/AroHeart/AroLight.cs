@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 public class AroLight : MonoBehaviour
 {
     Light2D aroLight;
-    float lightRange = 8;
+    float lightRange = 9;
     private const float decayRatePerSecond = 1f / 60f;
 
     public bool IsOn {  get; private set; }
