@@ -10,6 +10,10 @@
  - 0 : unit
  - 1 : AroShadow
 
+# orderInLayer
+- -100 : bg
+- -1 : item
+- 0 : default
 
 
 
