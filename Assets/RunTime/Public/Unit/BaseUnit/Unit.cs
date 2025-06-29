@@ -3,6 +3,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+
+public enum UnitArea
+{
+    Floor,
+    Hole,
+    Break
+}
+
+
 public class Unit : MonoBehaviour
 {
     public UnitParams uParams;
@@ -10,17 +19,53 @@ public class Unit : MonoBehaviour
 
     public int? AroId { get; set; } = null;
 
+    UnitArea area = UnitArea.Hole;
+
     void CasheReference()
     {
         uParams = GetComponent<UnitParams>();
         state = GetComponent<UnitState>();
     }
 
+    public void SetUnitArea(UnitArea area)
+    {
+        this.area = area;
+
+        switch (area)
+        {
+            case UnitArea.Floor:
+                SetFloorState();
+                break;
+            case UnitArea.Hole:
+                SetHoleState();
+                break;
+            case UnitArea.Break:
+                SetBreakState();
+                break;
+        }
+    }
+
+    void SetFloorState()
+    {
+        gameObject.SetActive(true);
+    }
+
+    void SetHoleState()
+    {
+        gameObject.SetActive(false);
+    }
+
+    void SetBreakState()
+    {
+
+    }
+
+
     public void FloorSetup(int? aroId)
     {
         CasheReference();
 
-        gameObject.SetActive(true);
+        SetFloorState();
 
         AroId = aroId;
 
@@ -34,7 +79,7 @@ public class Unit : MonoBehaviour
 
         GetComponentInChildren<AroLight>()?.FloorSetup();
 
-        
+
     }
 
     public void GoHole(Transform hole)
@@ -68,7 +113,7 @@ public class Unit : MonoBehaviour
     void AfterGoHole()
     {
 
-        gameObject.SetActive(false);
+        SetHoleState();
 
         if (AroId == null) return;
         HoleManager.Instance.EnteredHole(this);
@@ -84,7 +129,7 @@ public class Unit : MonoBehaviour
         state.NextPos = transform.position;
 
         StartCoroutine(DeathAnimation());
-        if(AroId != null)
+        if (AroId != null)
         {
             AroManager.Instance.AroDict[(int)AroId] = null;
         }
@@ -131,7 +176,7 @@ public class Unit : MonoBehaviour
             yield return null;
         }
 
-        if(AroId != null)
+        if (AroId != null)
         {
             UI_ArosSelector.Instance.ReportDeath((int)AroId);
         }
