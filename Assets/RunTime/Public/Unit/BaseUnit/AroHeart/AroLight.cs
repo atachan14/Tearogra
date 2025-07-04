@@ -35,7 +35,7 @@ public class AroLight : MonoBehaviour
         }
     }
 
-    public void StartBreak()
+    public void BreakSetup()
     {
         IsOn = false;
     }

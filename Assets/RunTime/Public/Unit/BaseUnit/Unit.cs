@@ -4,12 +4,6 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 
-public enum UnitArea
-{
-    Floor,
-    Hole,
-    Break
-}
 
 
 public class Unit : MonoBehaviour
@@ -19,53 +13,20 @@ public class Unit : MonoBehaviour
 
     public int? AroId { get; set; } = null;
 
-    UnitArea area = UnitArea.Hole;
-
     void CasheReference()
     {
         uParams = GetComponent<UnitParams>();
         state = GetComponent<UnitState>();
     }
 
-    public void SetUnitArea(UnitArea area)
-    {
-        this.area = area;
-
-        switch (area)
-        {
-            case UnitArea.Floor:
-                SetFloorState();
-                break;
-            case UnitArea.Hole:
-                SetHoleState();
-                break;
-            case UnitArea.Break:
-                SetBreakState();
-                break;
-        }
-    }
-
-    void SetFloorState()
-    {
-        gameObject.SetActive(true);
-    }
-
-    void SetHoleState()
-    {
-        gameObject.SetActive(false);
-    }
-
-    void SetBreakState()
-    {
-
-    }
+   
 
 
     public void FloorSetup(int? aroId)
     {
         CasheReference();
 
-        SetFloorState();
+        gameObject.SetActive(true);
 
         AroId = aroId;
 
@@ -78,9 +39,27 @@ public class Unit : MonoBehaviour
         }
 
         GetComponentInChildren<AroLight>()?.FloorSetup();
-
-
     }
+
+    public void BreakSetup(int? aroId)
+    {
+        CasheReference();
+
+        gameObject.SetActive(true);
+
+        AroId = aroId;
+
+        state.BreakSetup();
+
+        var skillParams = GetComponentsInChildren<SkillParams>();
+        foreach (var skill in skillParams)
+        {
+            skill.SetupSkill();
+        }
+
+        GetComponentInChildren<AroLight>()?.BreakSetup();
+    }
+
 
     public void GoHole(Transform hole)
     {
@@ -113,7 +92,7 @@ public class Unit : MonoBehaviour
     void AfterGoHole()
     {
 
-        SetHoleState();
+        gameObject.SetActive(false);
 
         if (AroId == null) return;
         HoleManager.Instance.EnteredHole(this);

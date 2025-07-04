@@ -32,6 +32,11 @@ public class UI_ArosSelectorField : MonoBehaviour
         toggle.onValueChanged.AddListener(_ => OnValueChanged());
     }
 
+    public void ChangeIsOn(bool value)
+    {
+        toggle.isOn = value;
+    }
+
     void OnValueChanged()
     {
         UpdateOutLineColor();

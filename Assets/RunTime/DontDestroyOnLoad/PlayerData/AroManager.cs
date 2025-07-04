@@ -19,7 +19,7 @@ public class AroManager : MonoBehaviour
     public void FloorSetup()
     {
         //AroDict‚ÆAroId‚Ì‰Šú‰»
-        var aroList = GetComponentsInChildren<Unit>();
+        var aroList = GetComponentsInChildren<Unit>(true);
         for (int i = 0; i < 5; i++)
         {
             var unit = (i < aroList.Length) ? aroList[i] : null;
@@ -28,5 +28,16 @@ public class AroManager : MonoBehaviour
         }
         Debug.Log("aroList: " + string.Join(", ", aroList.Select(aro => aro?.name ?? "null")));
         Debug.Log("AroDict: " + string.Join(", ", AroDict.Select(pair => $"[{pair.Key}]={pair.Value?.name ?? "null"}")));
+    }
+
+    public void BreakSetup()
+    {
+        var aroList = GetComponentsInChildren<Unit>(true);
+        for (int i = 0; i < 5; i++)
+        {
+            var unit = (i < aroList.Length) ? aroList[i] : null;
+            AroDict[i] = unit;
+            unit?.BreakSetup(i);
+        }
     }
 }

@@ -25,4 +25,9 @@ public class PlayerData : MonoBehaviour
         AroManager.Instance.FloorSetup();
         FloorCanvas.Instance.FloorSetup();
     }
+
+    public void BreakSetup()
+    {
+        AroManager.Instance.BreakSetup();
+    }
 }

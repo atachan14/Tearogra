@@ -5,9 +5,9 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BreakArea : MonoBehaviour
+public class BreakManager : MonoBehaviour
 {
-    public static BreakArea instance;
+    public static BreakManager instance;
     [SerializeField] Light2D breakLight;
     [SerializeField] Image breakUI;
     private void Awake()
@@ -23,13 +23,11 @@ public class BreakArea : MonoBehaviour
 
     void ArosSetup()
     {
-        
-        foreach(Unit aro in AroManager.Instance.AroDict.Values)
+        foreach (Unit aro in AroManager.Instance.AroDict.Values)
         {
             if(!aro) continue;
 
             aro.transform.position = BreakPosManager.Instance.posList[(int)aro.AroId].transform.position;
-            aro.state.NextPos = aro.transform.position;
 
             if (aro.AroId < 2)
             {
@@ -39,10 +37,11 @@ public class BreakArea : MonoBehaviour
             {
                 aro.state.Angle = -91;
             }
-            aro.gameObject.SetActive(true);
-            //aro.GetComponentInChildren<AroLight>()?.StartBreak();
+ 
 
         }
+        PlayerData.Instance.BreakSetup();
+
     }
 
     IEnumerator BreakStart()
@@ -55,21 +54,22 @@ public class BreakArea : MonoBehaviour
     {
         float duration = 2f;
         float time = 0f;
-        float startIntensity = 0f;
-        float targetIntensity = 1f; // 必要に応じて調整してね！
+        float startRadius = 0f;
+        float targetRadius = 10f; // 必要に応じて調整してね！
 
-        breakLight.intensity = startIntensity;
+        breakLight.pointLightOuterRadius = startRadius;
 
         while (time < duration)
         {
             float t = time / duration;
-            breakLight.intensity = Mathf.Lerp(startIntensity, targetIntensity, t);
+            breakLight.pointLightOuterRadius = Mathf.Lerp(startRadius, targetRadius, t);
             time += Time.deltaTime;
             yield return null;
         }
 
-        breakLight.intensity = targetIntensity; // 最終値に合わせてピッタリ
+        breakLight.pointLightOuterRadius = targetRadius; // 最終的にピッタリ
     }
+
 
     IEnumerator OpenUI()
     {

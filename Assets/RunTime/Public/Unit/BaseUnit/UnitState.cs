@@ -13,7 +13,7 @@ public enum AlertType
 
 public class UnitState : MonoBehaviour
 {
-   
+
     public List<ISkillActor> SkillState { get; set; } = new();
     [SerializeField] private List<MonoBehaviour> debug_SkillState = new();
 
@@ -40,6 +40,12 @@ public class UnitState : MonoBehaviour
     public void FloorSetup()
     {
         NextPos = transform.position;
+    }
+
+    public void BreakSetup()
+    {
+        NextPos = transform.position;
+
     }
 
     void Update()
